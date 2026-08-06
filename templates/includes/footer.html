@@ -1,0 +1,70 @@
+<footer class="bg-dark text-light">
+
+    <div class="container py-5">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <h4>Mon Portfolio</h4>
+
+                <p>
+
+                    Développeur Python & Django.
+
+                </p>
+
+                <p>
+
+                    Analyste des systèmes d'information.
+
+                </p>
+
+                <p>
+
+                    IT Manager
+                </p>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5>Navigation</h5>
+
+                <ul class="list-unstyled">
+
+                    <li><a href="{% url 'home' %}" class="text-light text-decoration-none">Accueil</a></li>
+
+                    <li><a href="{% url 'about' %}" class="text-light text-decoration-none">À propos</a></li>
+
+                    <li><a href="{% url 'projects' %}" class="text-light text-decoration-none">Projets</a></li>
+
+                    <li><a href="{% url 'contact' %}" class="text-light text-decoration-none">Contact</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5>Contact</h5>
+
+                <p>Email : christiandimemou@email.com</p>
+
+                <p>Téléphone : +237 680507683/699421701</p>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center">
+
+            © {% now "Y" %} Mon Portfolio - Tous droits réservés.
+
+        </div>
+
+    </div>
+
+</footer>

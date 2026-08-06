@@ -1,0 +1,74 @@
+<section class="hero-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- Texte -->
+
+            <div class="col-lg-6 pe-lg-5">
+
+                
+                <h1 class="display-3 fw-bold mt-3">
+
+                    Bonjour, je suis
+
+                    <span class="text-primary">
+
+                        {{ profile.first_name }}
+
+                        {{ profile.last_name }}
+
+                    </span>
+
+                </h1>
+
+                <h4 class="text-muted mb-3">
+
+                    {{ profile.title }}
+
+                </h4>
+
+                <p class="lead">
+
+                    {{ profile.bio }}
+
+                </p>
+
+                <div class="mt-4">
+
+                    <a href="#projects" class="btn btn-primary btn-lg me-3">
+
+                        Voir mes projets
+
+                    </a>
+
+                    <a href="#" class="btn btn-outline-dark btn-lg">
+
+                        Télécharger mon CV
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Photo -->
+
+            <div class="col-lg-6 d-flex justify-content-center">
+
+                <div class="profile-card">
+                    {% if profile.photo %}
+                        <img src="{{ profile.photo.url }}"
+                             alt="{{ profile.first_name }}"
+                             class="profile-image">
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

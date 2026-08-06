@@ -1,0 +1,80 @@
+{% with current=request.resolver_match.url_name %}
+
+<!-- Barre de navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
+
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+            MonPortfolio
+        </a>
+
+        <!-- Bouton mobile -->
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu"
+                aria-controls="menu"
+                aria-expanded="false"
+                aria-label="Navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'home' %}active{% endif %}"
+                       href="{% url 'home' %}">
+                        Accueil
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'about' %}active{% endif %}"
+                       href="{% url 'about' %}">
+                        À propos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'services' %}active{% endif %}"
+                       href="{% url 'services' %}">
+                        Services
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'skills' %}active{% endif %}"
+                       href="{% url 'skills' %}">
+                        Compétences
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'projects' %}active{% endif %}"
+                       href="{% url 'projects' %}">
+                        Projets
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'contact' %}active{% endif %}"
+                       href="{% url 'contact' %}">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+{% endwith %}

@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}
+À propos
+{% endblock %}
+
+{% block content %}
+
+<section class="about-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h1 class="section-title">
+                À propos de moi
+            </h1>
+
+            <p class="section-subtitle">
+                Découvrez mon parcours, mes compétences et ma vision.
+            </p>
+
+        </div>
+    
+        <div class="row align-items-center">
+
+            <div class="col-lg-4 text-center">
+
+                {% if profile.photo %}
+            
+                <div class="about-photo-card">
+            
+                    <img src="{{ profile.photo.url }}"
+                         class="about-photo"
+                         alt="{{ profile.first_name }}">
+            
+                </div>
+            
+                {% endif %}
+            
+            </div>
+        
+            <div class="col-lg-8">
+        
+                <h2>
+        
+                    {{ profile.first_name }}
+        
+                    {{ profile.last_name }}
+        
+                </h2>
+        
+                <h5 class="text-primary mb-4">
+        
+                    {{ profile.title }}
+        
+                </h5>
+        
+                <p>
+        
+                    {{ profile.bio }}
+        
+                </p>
+        
+                <a href="#" class="btn btn-primary mt-3">
+        
+                    Télécharger mon CV
+        
+                </a>
+        
+            </div>
+        
+        </div>
+
+        <section class="py-5">
+
+            <h2 class="section-title text-center mb-5">
+                🎓 Mon parcours académique
+            </h2>
+        
+            <div class="row g-4">
+
+                {% for item in education %}
+            
+                <div class="col-lg-4 col-md-6 d-flex">
+            
+                    <div class="formation-card h-100 w-100">
+            
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+            
+                        <h4>{{ item.degree }}</h4>
+            
+                        <h6 class="text-primary">
+                            {{ item.school }}
+                        </h6>
+            
+                        <small class="text-muted">
+                            {{ item.start_date }} - {{ item.end_date }}
+                        </small>
+            
+                        <p class="card-description">
+                            {{ item.description }}
+                        </p>
+            
+                    </div>
+            
+                </div>
+            
+                {% endfor %}
+            
+            </div>
+        
+        </section>
+        <section class="py-5">
+
+            <h2 class="section-title text-center mb-5">
+                💼 Mon expérience professionnelle
+            </h2>
+        
+            <div class="row g-4">
+
+                {% for exp in experiences %}
+            
+                <div class="col-lg-4 col-md-6 d-flex">
+            
+                    <div class="experience-card h-100 w-100">
+            
+                        <div class="card-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+            
+                        <h4>{{ exp.position }}</h4>
+            
+                        <h6 class="text-primary">
+                            {{ exp.company }}
+                        </h6>
+            
+                        <small class="text-muted">
+                            {{ exp.start_date }} - {{ exp.end_date }}
+                        </small>
+            
+                        <p class="card-description">
+                            {{ exp.description }}
+                        </p>
+            
+                    </div>
+            
+                </div>
+            
+                {% endfor %}
+            
+            </div>
+        
+        </section>
+
+                <section class="stats-section">
+
+                    <div class="row text-center">
+                    
+                    <div class="col-md-3">
+                    
+                    <h2>
+                    
+                    10+
+                    
+                    </h2>
+                    
+                    <p>
+                    
+                    Projets
+                    
+                    </p>
+                    
+                    </div>
+                    
+                    <div class="col-md-3">
+                    
+                    <h2>
+                    
+                    5+
+                    
+                    </h2>
+                    
+                    <p>
+                    
+                    Technologies
+                    
+                    </p>
+                    
+                    </div>
+                    
+                    <div class="col-md-3">
+                    
+                    <h2>
+                    
+                    2
+                    
+                    </h2>
+                    
+                    <p>
+                    
+                    Années d'expérience
+                    
+                    </p>
+                    
+                    </div>
+                    
+                    <div class="col-md-3">
+                    
+                    <h2>
+                    
+                    100%
+                    
+                    </h2>
+                    
+                    <p>
+                    
+                    Motivation
+                    
+                    </p>
+                    
+                    </div>
+                    
+                    </div>
+                    
+                    </section>
+    
+    {% endblock %}

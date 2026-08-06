@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+<section id="projects" class="container py-5">
+
+    <h2>Mes projets</h2>
+
+    <div class="row">
+
+        {% for project in projects %}
+
+        <div class="col-md-4">
+
+            <div class="card shadow mb-4">
+
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5>{{ project.title }}</h5>
+
+                    <p>{{ project.description|truncatewords:20 }}</p>
+
+                    <div class="mb-2">
+                        {% for tech in project.technologies.all %}
+                            <span class="badge bg-primary">
+                                {{ tech.name }}
+                            </span>
+                        {% empty %}
+                            <span class="badge bg-secondary">
+                                Aucune technologie
+                            </span>
+                        {% endfor %}
+                    </div>
+
+                    <a href="{% url 'project_detail' project.slug %}"
+                       class="btn btn-outline-primary">
+                        Voir les détails
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+<section class="container py-5">
+
+    <h2 class="mb-4">
+    
+    Mes compétences
+    
+    </h2>
+    
+    {% for skill in skills %}
+    
+    <p>
+    
+    {{ skill.name }}
+    
+    </p>
+    
+    <div class="progress mb-4">
+    
+    <div class="progress-bar"
+    
+    style="width:{{ skill.percentage }}%">
+    
+    {{ skill.percentage }}%
+    
+    </div>
+    
+    </div>
+    
+    {% endfor %}
+    
+    </section>
