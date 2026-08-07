@@ -330,7 +330,7 @@ img{
 
     background:#eef4ff;
 
-    color:#0d6efd;
+    color:#A52A2A;
 
     display:flex;
 
@@ -347,10 +347,199 @@ img{
 .formation-card:hover .card-icon,
 .experience-card:hover .card-icon{
 
-    background:#0d6efd;
+    background:#A52A2A;
 
     color:#fff;
 
     transform:rotate(12deg);
+
+}
+
+/*==============================
+        SERVICE CARD
+===============================*/
+
+.service-card{
+
+    width:100%;
+
+    margin:0 auto 60px auto;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    background:#070707;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+    transition:.4s;
+
+    min-height:550px;
+}
+
+.service-card .text-muted{
+    color: #ffffff !important;
+}
+
+.service-card p{
+    color: #ffffff;
+    text-align: justify;
+    line-height: 1.8;
+}
+
+
+
+.service-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:0 30px 60px rgba(0,0,0,.18);
+
+}
+
+.service-image-container{
+
+    height:100%;
+
+    min-height:500px;
+
+    overflow:hidden;
+
+    border-radius:25px 0 0 25px;
+
+}
+
+.service-image{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:transform .6s ease;
+
+}
+
+.service-card:hover .service-image{
+
+    transform:scale(1.08);
+
+}
+
+.service-icon{
+
+    font-size:36px;
+
+    margin-right:15px;
+
+    color:#0d6efd;
+
+    transition:all .4s ease;
+
+}
+
+.service-card:hover .service-icon{
+
+    transform:rotate(15deg) scale(1.2);
+
+    color:#8a810a;
+
+}
+
+.service-title{
+
+    font-weight:700;
+
+    transition:.4s;
+
+    color: #f7f0b3;
+
+}
+
+.service-card:hover .service-title{
+
+    color:#8a810a;
+
+}
+
+.service-card .btn{
+
+    border-radius:30px;
+
+    padding:12px 28px;
+
+    transition:.35s;
+
+    font-weight: 600;
+
+}
+
+.service-card .row{
+
+    display:flex;
+
+    align-items:stretch;
+
+    margin:0;
+
+}
+
+.service-card .btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.service-card{
+
+    animation:fadeUp .8s ease both;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.service-card .card-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    height:100%;
+
+    padding:45px;
+
+}
+
+.service-card{
+
+    box-shadow:
+
+    0 8px 20px rgba(0,0,0,.06),
+
+    0 18px 45px rgba(0,0,0,.10);
 
 }

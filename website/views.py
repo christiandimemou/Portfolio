@@ -38,14 +38,35 @@ def about(request):
 
 
 def services(request):
+
+    services = Service.objects.all()
+
+    context = {
+        "services": services
+    }
+
     return render(
         request,
         "includes/services.html",
-        {
-            "services": Service.objects.all()
-        }
+        context
     )
 
+def service_detail(request, slug):
+
+    service = get_object_or_404(
+        Service,
+        slug=slug
+    )
+
+    context = {
+        "service": service
+    }
+
+    return render(
+        request,
+        "service_detail.html",
+        context
+    )
 
 def skills(request):
     return render(

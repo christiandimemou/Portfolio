@@ -27,12 +27,57 @@ class Skill(models.Model):
 
 
 class Service(models.Model):
-    title = models.CharField(max_length=150)
-    description = models.TextField()
-    icon = models.CharField(
-        max_length=100,
-        help_text="Exemple : fa-solid fa-code",
+
+    title = models.CharField(
+        max_length=200
     )
+
+    slug = models.SlugField(
+        unique=True,
+        blank=True,
+        null=True
+    )
+
+    short_description = models.CharField(
+        max_length=300,
+        blank=True
+    )
+
+    description = models.TextField(
+        blank=True
+    )
+
+    image = models.ImageField(
+        upload_to="services/",
+        blank=True,
+        null=True
+    )
+
+    icon = models.CharField(
+        max_length=50,
+        default="fa-laptop-code",
+        help_text="Nom de l'icône Font Awesome"
+    )
+
+    technologies = models.TextField(
+        blank=True,
+        help_text="Python, Django, MySQL..."
+    )
+
+    methodology = models.TextField(
+        blank=True
+    )
+
+    examples = models.TextField(
+        blank=True
+    )
+
+    order = models.PositiveIntegerField(
+        default=0
+    )
+
+    class Meta:
+        ordering = ["order"]
 
     def __str__(self):
         return self.title

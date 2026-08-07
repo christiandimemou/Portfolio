@@ -1,1 +1,149 @@
 {% extends "base.html" %}
+
+{% block title %}
+Mes Services
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 mt-5">
+
+    <h1 class="text-center mb-5">
+        Mes Services
+    </h1>
+
+    {% for service in services %}
+
+    <div class="service-card mb-5">
+
+        <div class="row g-0 align-items-center">
+
+            {% if forloop.counter|divisibleby:2 %}
+
+                <!-- Service pair : Texte à gauche -->
+
+                <div class="col-lg-7 order-lg-1 order-2">
+
+                    <div class="card-body p-5">
+
+                        <h2 class="service-title">
+
+                            <i class="fas {{ service.icon }} service-icon"></i>
+
+                            {{ service.title }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            {{ service.short_description }}
+
+                        </p>
+
+                        <p>
+
+                            {{ service.description|truncatewords:50 }}
+
+                        </p>
+
+                        <a href="{% url 'service_detail' service.slug %}"
+                           class="btn btn-primary">
+
+                            En savoir plus
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 order-lg-2 order-1">
+
+                    {% if service.image %}
+
+                    <div class="service-image-container">
+
+                        <img src="{{ service.image.url }}"
+                             class="service-image"
+                             alt="{{ service.title }}">
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            {% else %}
+
+                <!-- Service impair : Image à gauche -->
+
+                <div class="col-lg-5">
+
+                    {% if service.image %}
+
+                    <div class="service-image-container">
+
+                        <img src="{{ service.image.url }}"
+                             class="service-image"
+                             alt="{{ service.title }}">
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="col-lg-7">
+
+                    <div class="card-body p-5">
+
+                        <h2 class="service-title">
+
+                            <i class="fas {{ service.icon }} service-icon"></i>
+
+                            {{ service.title }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            {{ service.short_description }}
+
+                        </p>
+
+                        <p>
+
+                            {{ service.description }}
+
+                        </p>
+
+                        <a href="{% url 'service_detail' service.slug %}"
+                           class="btn btn-primary">
+
+                            En savoir plus
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="alert alert-warning text-center">
+
+        Aucun service disponible.
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

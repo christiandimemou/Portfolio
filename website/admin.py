@@ -13,9 +13,23 @@ from .models import (
 
 admin.site.register(Profile)
 admin.site.register(Skill)
-admin.site.register(Service)
 admin.site.register(Project)
 admin.site.register(Experience)
 admin.site.register(Education)
 admin.site.register(Contact)
 admin.site.register(Technology)
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "title",
+        "order"
+    )
+
+    prepopulated_fields = {
+        "slug": ("title",)
+    }
+
+    ordering = (
+        "order",
+    )

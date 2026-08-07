@@ -89,20 +89,17 @@
                         <div class="card-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
-            
-                        <h4>{{ item.degree }}</h4>
-            
-                        <h6 class="text-primary">
+
+                        <h6 >
                             {{ item.school }}
                         </h6>
             
+                        <h4 class="text-primary">{{ item.diploma }}</h4>                      
+
                         <small class="text-muted">
-                            {{ item.start_date }} - {{ item.end_date }}
+                                 {{ item.start_year }} - {{ item.end_year }}
                         </small>
-            
-                        <p class="card-description">
-                            {{ item.description }}
-                        </p>
+                                  
             
                     </div>
             
@@ -130,16 +127,16 @@
                         <div class="card-icon">
                             <i class="fas fa-briefcase"></i>
                         </div>
-            
-                        <h4>{{ exp.position }}</h4>
-            
+
                         <h6 class="text-primary">
                             {{ exp.company }}
                         </h6>
-            
+
                         <small class="text-muted">
                             {{ exp.start_date }} - {{ exp.end_date }}
                         </small>
+            
+                        <h4>{{ exp.position }}</h4>
             
                         <p class="card-description">
                             {{ exp.description }}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ service.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 mt-5">
+
+    <h1>{{ service.title }}</h1>
+
+    {% if service.image %}
+        <img src="{{ service.image.url }}"
+             class="img-fluid rounded shadow mb-4">
+    {% endif %}
+
+    <p>{{ service.description }}</p>
+
+    <h4>Technologies</h4>
+
+    <p>{{ service.technologies }}</p>
+
+    <h4>Méthodologie</h4>
+
+    <p>{{ service.methodology }}</p>
+
+    <h4>Exemples de réalisations</h4>
+
+    <p>{{ service.examples }}</p>
+
+    <a href="{% url 'services' %}"
+       class="btn btn-secondary">
+
+        Retour
+
+    </a>
+
+</div>
+
+{% endblock %}
