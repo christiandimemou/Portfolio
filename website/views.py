@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Profile, Skill, Project, Service, Experience, Education
+from .models import Profile, Skill, Project, Service, Experience, Education, Technology
+
 from django.shortcuts import get_object_or_404
     
 
@@ -69,12 +70,98 @@ def service_detail(request, slug):
     )
 
 def skills(request):
+
+    skills = Skill.objects.all()
+
+    category_config = [
+        {
+            "slug": "development",
+            "name": "Développement Logiciel & Web",
+            "icon": "fa-code",
+            "color": "#0d6efd",
+        },
+        {
+            "slug": "database",
+            "name": "Bases de Données",
+            "icon": "fa-database",
+            "color": "#20c997",
+        },
+        {
+            "slug": "architecture",
+            "name": "Architecture & Systèmes d'Information",
+            "icon": "fa-sitemap",
+            "color": "#ffae00",
+        },
+        {
+            "slug": "project",
+            "name": "Gestion de Projets IT",
+            "icon": "fa-chart-line",
+            "color": "#9747ff",
+        },
+        {
+            "slug": "security",
+            "name": "Sécurité Informatique",
+            "icon": "fa-shield-halved",
+            "color": "#ff334f",
+        },
+        {
+            "slug": "infrastructure",
+            "name": "Infrastructure & Administration IT",
+            "icon": "fa-server",
+            "color": "#00b8d9",
+        },
+    ]
+
+    skill_categories = []
+
+    radar_values = []
+
+    for category in category_config:
+
+        category_skills = skills.filter(
+            category=category["slug"]
+        )
+
+        skill_categories.append({
+            **category,
+            "skills": category_skills,
+        })
+
+        if category_skills.exists():
+
+            average = sum(
+                skill.percentage
+                for skill in category_skills
+            ) / category_skills.count()
+
+            radar_values.append(round(average))
+
+        else:
+
+            radar_values.append(0)
+
+    context = {
+        "skills": skills,
+
+        "skill_categories": skill_categories,
+
+        "skill_count": skills.count(),
+
+        "project_count": Project.objects.count(),
+
+        "category_count": len(category_config),
+
+        "technology_count": Technology.objects.count(),
+
+        "technologies": Technology.objects.all(),
+
+        "radar_values": radar_values,
+    }
+
     return render(
         request,
         "skills.html",
-        {
-            "skills": Skill.objects.all()
-        }
+        context
     )
 
 

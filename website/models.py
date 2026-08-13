@@ -19,12 +19,63 @@ class Profile(models.Model):
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=100)
-    percentage = models.PositiveIntegerField()
+
+    CATEGORY_TYPE_CHOICES = [
+        ("technical", "Compétence technique"),
+        ("managerial", "Compétence managériale"),
+    ]
+
+    CATEGORY_CHOICES = [
+        ("development", "Développement logiciel & Web"),
+        ("database", "Bases de données"),
+        ("architecture", "Architecture & Systèmes d'information"),
+        ("project", "Gestion de projets IT"),
+        ("security", "Sécurité informatique"),
+        ("infrastructure", "Infrastructure & Administration IT"),
+    ]
+
+    name = models.CharField(
+        max_length=100,
+        verbose_name="Compétence"
+    )
+
+    percentage = models.PositiveIntegerField(
+        verbose_name="Niveau de maîtrise (%)"
+    )
+
+    category_type = models.CharField(
+        max_length=20,
+        choices=CATEGORY_TYPE_CHOICES,
+        default="technical",
+        verbose_name="Type de compétence"
+    )
+
+    category = models.CharField(
+        max_length=30,
+        choices=CATEGORY_CHOICES,
+        default="development",
+        verbose_name="Domaine"
+    )
+
+    icon = models.CharField(
+        max_length=50,
+        default="fa-code",
+        verbose_name="Icône Font Awesome",
+        help_text="Exemple : fa-python, fa-database, fa-shield-halved"
+    )
+
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Ordre d'affichage"
+    )
+
+    class Meta:
+        ordering = ["category", "order", "name"]
+        verbose_name = "Compétence"
+        verbose_name_plural = "Compétences"
 
     def __str__(self):
         return self.name
-
 
 class Service(models.Model):
 
@@ -83,7 +134,45 @@ class Service(models.Model):
         return self.title
 
 class Technology(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+
+    CATEGORY_CHOICES = [
+        ("development", "Développement"),
+        ("database", "Bases de données"),
+        ("architecture", "Architecture & SI"),
+        ("project", "Gestion de projets"),
+        ("security", "Sécurité"),
+        ("infrastructure", "Infrastructure"),
+    ]
+
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name="Technologie"
+    )
+
+    category = models.CharField(
+        max_length=30,
+        choices=CATEGORY_CHOICES,
+        default="development",
+        verbose_name="Domaine"
+    )
+
+    icon = models.CharField(
+        max_length=50,
+        default="fa-code",
+        verbose_name="Icône Font Awesome",
+        help_text="Exemple : fa-python, fa-database, fa-github"
+    )
+
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Ordre d'affichage"
+    )
+
+    class Meta:
+        ordering = ["category", "order", "name"]
+        verbose_name = "Technologie"
+        verbose_name_plural = "Technologies"
 
     def __str__(self):
         return self.name

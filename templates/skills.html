@@ -1,33 +1,749 @@
 {% extends "base.html" %}
+{% load static %}
 
-<section class="container py-5">
+{% block title %}
+Mes Compétences
+{% endblock %}
 
-    <h2 class="mb-4">
-    
-    Mes compétences
-    
-    </h2>
-    
-    {% for skill in skills %}
-    
-    <p>
-    
-    {{ skill.name }}
-    
-    </p>
-    
-    <div class="progress mb-4">
-    
-    <div class="progress-bar"
-    
-    style="width:{{ skill.percentage }}%">
-    
-    {{ skill.percentage }}%
-    
-    </div>
-    
-    </div>
-    
-    {% endfor %}
-    
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/skills.css' %}">
+
+<div class="skills-page">
+
+    <!-- =====================================================
+         EN-TÊTE
+    ====================================================== -->
+
+    <section class="skills-hero">
+
+        <div class="skills-hero-content">
+
+            <h1>
+                Mes <span>Compétences</span>
+            </h1>
+
+            <div class="skills-title-line"></div>
+
+            <p>
+                Un ensemble de compétences techniques et managériales
+                acquises à travers mes expériences professionnelles
+                et projets réalisés.
+            </p>
+
+        </div>
+
+        <!-- Onglets -->
+        <div class="skills-tabs">
+
+            <button
+                type="button"
+                class="skills-tab active"
+                data-filter="technical">
+
+                <i class="fas fa-code"></i>
+
+                <span>Compétences techniques</span>
+
+            </button>
+
+            <button
+                type="button"
+                class="skills-tab"
+                data-filter="managerial">
+
+                <i class="fas fa-briefcase"></i>
+
+                <span>Compétences managériales</span>
+
+            </button>
+
+        </div>
+
     </section>
+
+
+    <!-- =====================================================
+         DOMAINES DE COMPÉTENCES
+    ====================================================== -->
+
+    <section class="skills-domains">
+
+        <div class="skills-grid">
+
+            {% for category in skill_categories %}
+
+                <article
+                    class="skill-domain-card"
+                    data-category="{{ category.slug }}"
+                >
+
+                    <!-- En-tête de la carte -->
+
+                    <div class="skill-domain-header">
+
+                        <div
+                            class="skill-domain-icon"
+                            style="--domain-color: {{ category.color }};"
+                        >
+                            <i class="fas {{ category.icon }}"></i>
+                        </div>
+
+                        <div>
+                            <h2>
+                                {{ category.name }}
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Liste des compétences -->
+
+                    <div class="skill-list">
+
+                        {% for skill in category.skills %}
+
+                            <div
+                                class="skill-item"
+                                data-skill-type="{{ skill.category_type }}"
+                            >
+
+                                <div class="skill-name">
+
+                                    <span class="skill-dot"></span>
+
+                                    <span>
+                                        {{ skill.name }}
+                                    </span>
+
+                                </div>
+
+                                <div class="skill-progress-wrapper">
+
+                                    <div class="skill-progress">
+
+                                        <div
+                                            class="skill-progress-bar"
+                                            data-width="{{ skill.percentage }}"
+                                            style="
+                                                --skill-color: {{ category.color }};
+                                            "
+                                        ></div>
+
+                                    </div>
+
+                                    <span class="skill-percentage">
+                                        {{ skill.percentage }}%
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        {% empty %}
+
+                            <p class="no-skill">
+                                Aucune compétence enregistrée.
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <div class="skills-empty">
+
+                    <i class="fas fa-layer-group"></i>
+
+                    <h3>
+                        Aucune compétence disponible
+                    </h3>
+
+                    <p>
+                        Ajoutez vos compétences depuis l'administration Django.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VUE D'ENSEMBLE
+    ====================================================== -->
+
+    <section class="skills-overview">
+
+        <div class="overview-content">
+
+            <div class="overview-text">
+
+                <span class="section-label">
+                    PROFIL PROFESSIONNEL
+                </span>
+
+                <h2>
+                    Vue d'ensemble
+                </h2>
+
+                <div class="section-line"></div>
+
+                <p>
+                    J'allie expertise technique et compétences managériales
+                    pour concevoir, développer et piloter des solutions
+                    numériques performantes, sécurisées et adaptées aux
+                    besoins des organisations.
+                </p>
+
+                <p>
+                    Mon approche combine compréhension des besoins,
+                    conception de solutions, développement, gestion de
+                    projets et amélioration continue.
+                </p>
+
+            </div>
+
+
+            <!-- Statistiques -->
+
+            <div class="overview-stats">
+
+                <div class="overview-stat">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+
+                    <strong>
+                        {{ skill_count }}
+                    </strong>
+
+                    <span>
+                        Compétences
+                    </span>
+
+                </div>
+
+
+                <div class="overview-stat">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+
+                    <strong>
+                        {{ project_count }}
+                    </strong>
+
+                    <span>
+                        Projets réalisés
+                    </span>
+
+                </div>
+
+
+                <div class="overview-stat">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+
+                    <strong>
+                        {{ category_count }}
+                    </strong>
+
+                    <span>
+                        Domaines d'expertise
+                    </span>
+
+                </div>
+
+
+                <div class="overview-stat">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+
+                    <strong>
+                        {{ technology_count }}
+                    </strong>
+
+                    <span>
+                        Technologies
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RADAR
+        ================================================== -->
+
+        <div class="skills-radar">
+
+            <div class="radar-header">
+
+                <span class="section-label">
+                    PROFIL
+                </span>
+
+                <h2>
+                    Répartition des compétences
+                </h2>
+
+            </div>
+
+            <div class="radar-container">
+
+                <canvas id="skillsRadar"></canvas>
+
+            </div>
+
+            <div class="radar-legend">
+
+                <div>
+                    <span class="legend-dot expert"></span>
+                    <span>
+                        Expert
+                        <small>80% – 100%</small>
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-dot advanced"></span>
+                    <span>
+                        Avancé
+                        <small>60% – 79%</small>
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-dot intermediate"></span>
+                    <span>
+                        Intermédiaire
+                        <small>40% – 59%</small>
+                    </span>
+                </div>
+
+                <div>
+                    <span class="legend-dot beginner"></span>
+                    <span>
+                        Débutant
+                        <small>0% – 39%</small>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         OUTILS & TECHNOLOGIES
+    ====================================================== -->
+
+    <section class="technologies-section">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                ENVIRONNEMENT TECHNIQUE
+            </span>
+
+            <h2>
+                Outils & Technologies
+            </h2>
+
+            <div class="section-line"></div>
+
+        </div>
+
+
+        <div class="technologies-grid">
+
+            {% for technology in technologies %}
+
+                <div class="technology-card">
+
+                    <div class="technology-icon">
+
+                        {% if technology.icon %}
+                            <i class="fab {{ technology.icon }}"></i>
+                        {% else %}
+                            <i class="fas fa-code"></i>
+                        {% endif %}
+
+                    </div>
+
+                    <span>
+                        {{ technology.name }}
+                    </span>
+
+                </div>
+
+            {% empty %}
+
+                <!-- Technologies par défaut visuelles -->
+
+                <div class="technology-card">
+                    <div class="technology-icon python">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <span>Python</span>
+                </div>
+
+                <div class="technology-card">
+                    <div class="technology-icon django">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <span>Django</span>
+                </div>
+
+                <div class="technology-card">
+                    <div class="technology-icon javascript">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <span>JavaScript</span>
+                </div>
+
+                <div class="technology-card">
+                    <div class="technology-icon mysql">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <span>MySQL</span>
+                </div>
+
+                <div class="technology-card">
+                    <div class="technology-icon git">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <span>Git</span>
+                </div>
+
+                <div class="technology-card">
+                    <div class="technology-icon github">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <span>GitHub</span>
+                </div>
+
+                <div class="technology-card">
+                    <div class="technology-icon linux">
+                        <i class="fab fa-linux"></i>
+                    </div>
+                    <span>Linux</span>
+                </div>
+
+                <div class="technology-card">
+                    <div class="technology-icon bootstrap">
+                        <i class="fab fa-bootstrap"></i>
+                    </div>
+                    <span>Bootstrap</span>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CITATION FINALE
+    ====================================================== -->
+
+    <section class="skills-quote">
+
+        <div class="quote-mark">
+            <i class="fas fa-quote-left"></i>
+        </div>
+
+        <div class="quote-content">
+
+            <blockquote>
+                Maîtriser la technique est essentiel,
+                mais comprendre les besoins et piloter
+                les projets l'est tout autant.
+            </blockquote>
+
+        </div>
+
+        <div class="quote-author">
+
+            <div class="author-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+
+            <div>
+                <strong>
+                    IT Manager, Analyste des Systhèmes d'Information
+                </strong>
+
+                <span>
+                    passionné par la technologie et l'innovation
+                </span>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================================================
+     CHART.JS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =====================================================
+       ANIMATION DES BARRES
+    ====================================================== */
+
+    const progressBars = document.querySelectorAll(
+        ".skill-progress-bar"
+    );
+
+    const progressObserver = new IntersectionObserver(
+        function (entries) {
+
+            entries.forEach(function (entry) {
+
+                if (entry.isIntersecting) {
+
+                    const bar = entry.target;
+
+                    const width = bar.dataset.width;
+
+                    bar.style.width = width + "%";
+
+                    progressObserver.unobserve(bar);
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.3
+        }
+    );
+
+
+    progressBars.forEach(function (bar) {
+
+        progressObserver.observe(bar);
+
+    });
+
+
+    /* =====================================================
+       FILTRE TECHNIQUE / MANAGÉRIAL
+    ====================================================== */
+
+    const tabs = document.querySelectorAll(".skills-tab");
+    const cards = document.querySelectorAll(".skill-domain-card");
+
+    tabs.forEach(function (tab) {
+
+        tab.addEventListener("click", function () {
+
+            tabs.forEach(function (item) {
+                item.classList.remove("active");
+            });
+
+            tab.classList.add("active");
+
+            const filter = tab.dataset.filter;
+
+            cards.forEach(function (card) {
+
+                const skills = card.querySelectorAll(
+                    ".skill-item"
+                );
+
+                let visibleSkills = 0;
+
+                skills.forEach(function (skill) {
+
+                    if (
+                        skill.dataset.skillType === filter
+                        || filter === "all"
+                    ) {
+
+                        skill.style.display = "flex";
+
+                        visibleSkills++;
+
+                    } else {
+
+                        skill.style.display = "none";
+
+                    }
+
+                });
+
+
+                if (visibleSkills > 0) {
+
+                    card.classList.remove("hidden-domain");
+
+                } else {
+
+                    card.classList.add("hidden-domain");
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+    /* =====================================================
+       RADAR
+    ====================================================== */
+
+    const radarCanvas = document.getElementById(
+        "skillsRadar"
+    );
+
+    if (radarCanvas) {
+
+        const radarLabels = [
+            "Développement",
+            "Bases de données",
+            "Architecture SI",
+            "Gestion de projets",
+            "Sécurité",
+            "Infrastructure"
+        ];
+
+        const radarValues = [
+            {{ radar_values.0|default:"0" }},
+            {{ radar_values.1|default:"0" }},
+            {{ radar_values.2|default:"0" }},
+            {{ radar_values.3|default:"0" }},
+            {{ radar_values.4|default:"0" }},
+            {{ radar_values.5|default:"0" }}
+        ];
+
+
+        new Chart(
+            radarCanvas,
+            {
+                type: "radar",
+
+                data: {
+
+                    labels: radarLabels,
+
+                    datasets: [
+                        {
+                            label: "Niveau de maîtrise",
+
+                            data: radarValues,
+
+                            backgroundColor:
+                                "rgba(13, 110, 253, 0.20)",
+
+                            borderColor:
+                                "#0d6efd",
+
+                            borderWidth: 2,
+
+                            pointBackgroundColor:
+                                "#0d6efd",
+
+                            pointBorderColor:
+                                "#ffffff",
+
+                            pointRadius: 4,
+
+                            pointHoverRadius: 7
+                        }
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    scales: {
+
+                        r: {
+
+                            min: 0,
+
+                            max: 100,
+
+                            ticks: {
+                                display: false
+                            },
+
+                            grid: {
+                                color:
+                                    "rgba(255,255,255,0.12)"
+                            },
+
+                            angleLines: {
+                                color:
+                                    "rgba(255,255,255,0.12)"
+                            },
+
+                            pointLabels: {
+                                color: "#ffffff",
+                                font: {
+                                    size: 12,
+                                    weight: "600"
+                                }
+                            }
+
+                        }
+
+                    },
+
+                    plugins: {
+
+                        legend: {
+                            display: false
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+
+{% endblock %}
