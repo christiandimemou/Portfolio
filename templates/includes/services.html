@@ -6,50 +6,94 @@ Mes Services
 
 {% block content %}
 
-<div class="container py-5 mt-5">
+<div class="services-container">
 
-    <h1 class="text-center mb-5">
-        Mes Services
-    </h1>
+    <!-- ============================= -->
+    <!-- EN-TÊTE -->
+    <!-- ============================= -->
+
+    <header class="services-header">
+
+        <h1>Mes Services</h1>
+
+        <div class="services-header-line"></div>
+
+        <p>
+            Des solutions numériques adaptées aux besoins des organisations,
+            entreprises et projets.
+        </p>
+
+    </header>
+
+
+    <!-- ============================= -->
+    <!-- SERVICES -->
+    <!-- ============================= -->
 
     {% for service in services %}
 
-    <div class="service-card mb-5">
+    <article class="service-card">
 
-        <div class="row g-0 align-items-center">
+        <div class="row g-0 service-row">
 
             {% if forloop.counter|divisibleby:2 %}
 
-                <!-- Service pair : Texte à gauche -->
+                <!-- ================================= -->
+                <!-- SERVICE PAIR : TEXTE À GAUCHE -->
+                <!-- ================================= -->
 
-                <div class="col-lg-7 order-lg-1 order-2">
+                <div class="col-lg-7 order-lg-1 order-2 service-text-column">
 
-                    <div class="card-body p-5">
+                    <div class="service-content">
 
-                        <h2 class="service-title">
+                        <!-- Icône -->
+
+                        <div class="service-icon-wrapper">
 
                             <i class="fas {{ service.icon }} service-icon"></i>
+
+                        </div>
+
+
+                        <!-- Titre -->
+
+                        <h2 class="service-title">
 
                             {{ service.title }}
 
                         </h2>
 
-                        <p class="text-muted">
+
+                        <!-- Petite description -->
+
+                        {% if service.short_description %}
+
+                        <p class="service-short-description">
 
                             {{ service.short_description }}
 
                         </p>
 
-                        <p>
+                        {% endif %}
 
-                            {{ service.description|truncatewords:50 }}
 
-                        </p>
+                        <!-- Description complète -->
+
+                        <div class="service-description">
+
+                            {{ service.description|linebreaks }}
+
+                        </div>
+
+
+                        <!-- Bouton -->
 
                         <a href="{% url 'service_detail' service.slug %}"
-                           class="btn btn-primary">
+                           class="btn btn-primary service-button">
 
                             En savoir plus
+
+                            <i class="fas fa-arrow-right"></i>
 
                         </a>
 
@@ -57,7 +101,10 @@ Mes Services
 
                 </div>
 
-                <div class="col-lg-5 order-lg-2 order-1">
+
+                <!-- Image à droite -->
+
+                <div class="col-lg-5 order-lg-2 order-1 service-image-column">
 
                     {% if service.image %}
 
@@ -72,12 +119,15 @@ Mes Services
                     {% endif %}
 
                 </div>
+
 
             {% else %}
 
-                <!-- Service impair : Image à gauche -->
+                <!-- ================================= -->
+                <!-- SERVICE IMPAIR : IMAGE À GAUCHE -->
+                <!-- ================================= -->
 
-                <div class="col-lg-5">
+                <div class="col-lg-5 service-image-column">
 
                     {% if service.image %}
 
@@ -93,34 +143,61 @@ Mes Services
 
                 </div>
 
-                <div class="col-lg-7">
 
-                    <div class="card-body p-5">
+                <!-- Texte à droite -->
 
-                        <h2 class="service-title">
+                <div class="col-lg-7 service-text-column">
+
+                    <div class="service-content">
+
+                        <!-- Icône -->
+
+                        <div class="service-icon-wrapper">
 
                             <i class="fas {{ service.icon }} service-icon"></i>
+
+                        </div>
+
+
+                        <!-- Titre -->
+
+                        <h2 class="service-title">
 
                             {{ service.title }}
 
                         </h2>
 
-                        <p class="text-muted">
+
+                        <!-- Petite description -->
+
+                        {% if service.short_description %}
+
+                        <p class="service-short-description">
 
                             {{ service.short_description }}
 
                         </p>
 
-                        <p>
+                        {% endif %}
 
-                            {{ service.description }}
 
-                        </p>
+                        <!-- Description -->
+
+                        <div class="service-description">
+
+                            {{ service.description|linebreaks }}
+
+                        </div>
+
+
+                        <!-- Bouton -->
 
                         <a href="{% url 'service_detail' service.slug %}"
-                           class="btn btn-primary">
+                           class="btn btn-primary service-button">
 
                             En savoir plus
+
+                            <i class="fas fa-arrow-right"></i>
 
                         </a>
 
@@ -132,13 +209,24 @@ Mes Services
 
         </div>
 
-    </div>
+    </article>
+
 
     {% empty %}
 
-    <div class="alert alert-warning text-center">
+    <!-- ============================= -->
+    <!-- AUCUN SERVICE -->
+    <!-- ============================= -->
 
-        Aucun service disponible.
+    <div class="no-services">
+
+        <i class="fas fa-briefcase"></i>
+
+        <h3>Aucun service disponible</h3>
+
+        <p>
+            Les services seront bientôt disponibles.
+        </p>
 
     </div>
 

@@ -64,7 +64,7 @@ def service_detail(request, slug):
 
     return render(
         request,
-        "service_detail.html",
+        "includes/service_detail.html",
         context
     )
 

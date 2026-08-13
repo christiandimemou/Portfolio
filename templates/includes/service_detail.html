@@ -6,36 +6,154 @@
 
 {% block content %}
 
-<div class="container py-5 mt-5">
+<section class="service-detail-page">
 
-    <h1>{{ service.title }}</h1>
+    <div class="container py-5">
 
-    {% if service.image %}
-        <img src="{{ service.image.url }}"
-             class="img-fluid rounded shadow mb-4">
-    {% endif %}
+        <div class="row align-items-center g-5">
 
-    <p>{{ service.description }}</p>
+            <!-- IMAGE -->
 
-    <h4>Technologies</h4>
+            <div class="col-lg-5">
 
-    <p>{{ service.technologies }}</p>
+                {% if service.image %}
 
-    <h4>Méthodologie</h4>
+                <div class="service-detail-image">
 
-    <p>{{ service.methodology }}</p>
+                    <img src="{{ service.image.url }}"
+                         alt="{{ service.title }}"
+                         class="img-fluid">
 
-    <h4>Exemples de réalisations</h4>
+                </div>
 
-    <p>{{ service.examples }}</p>
+                {% endif %}
 
-    <a href="{% url 'services' %}"
-       class="btn btn-secondary">
+            </div>
 
-        Retour
 
-    </a>
+            <!-- CONTENU -->
 
-</div>
+            <div class="col-lg-7">
+
+                <div class="service-detail-content">
+
+                    <!-- Icône -->
+
+                    <div class="service-detail-icon">
+
+                        <i class="fas {{ service.icon }}"></i>
+
+                    </div>
+
+
+                    <!-- Titre -->
+
+                    <h1>
+                        {{ service.title }}
+                    </h1>
+
+
+                    <!-- Petite description -->
+
+                    {% if service.short_description %}
+
+                    <p class="service-detail-short-description">
+
+                        {{ service.short_description }}
+
+                    </p>
+
+                    {% endif %}
+
+
+                    <!-- Description -->
+
+                    <div class="service-detail-description">
+
+                        {{ service.description|linebreaks }}
+
+                    </div>
+
+
+                    <!-- Technologies -->
+
+                    {% if service.technologies %}
+
+                    <div class="service-detail-section">
+
+                        <h3>
+                            <i class="fas fa-code"></i>
+                            Technologies utilisées
+                        </h3>
+
+                        <p>
+                            {{ service.technologies|linebreaks }}
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <!-- Méthodologie -->
+
+                    {% if service.methodology %}
+
+                    <div class="service-detail-section">
+
+                        <h3>
+                            <i class="fas fa-gears"></i>
+                            Méthode de travail
+                        </h3>
+
+                        <p>
+                            {{ service.methodology|linebreaks }}
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <!-- Exemples -->
+
+                    {% if service.examples %}
+
+                    <div class="service-detail-section">
+
+                        <h3>
+                            <i class="fas fa-folder-open"></i>
+                            Exemples de réalisations
+                        </h3>
+
+                        <p>
+                            {{ service.examples|linebreaks }}
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <!-- Retour -->
+
+                    <a href="{% url 'services' %}"
+                       class="btn btn-primary mt-4">
+
+                        <i class="fas fa-arrow-left"></i>
+
+                        Retour aux services
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}
