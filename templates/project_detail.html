@@ -1,0 +1,518 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ project.title }} | Mes Projets
+{% endblock %}
+
+{% block content %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'css/project_detail.css' %}"
+>
+
+
+<section class="project-detail-page">
+
+    <!-- ================================================= -->
+    <!-- HERO -->
+    <!-- ================================================= -->
+
+    <div class="project-detail-hero">
+
+        <div class="project-detail-container">
+
+            <a
+                href="{% url 'projects' %}"
+                class="back-projects"
+            >
+                <i class="fas fa-arrow-left"></i>
+                Retour aux projets
+            </a>
+
+
+            <div class="project-detail-category">
+
+                <i class="fas fa-code"></i>
+
+                {{ project.get_category_display }}
+
+            </div>
+
+
+            <h1>
+                {{ project.title }}
+            </h1>
+
+
+            <div class="project-detail-line"></div>
+
+
+            <p class="project-detail-intro">
+
+                {{ project.description|truncatewords:35 }}
+
+            </p>
+
+
+            <div class="project-detail-meta">
+
+                <div class="
+                    detail-status
+                    {% if project.status == 'completed' %}
+                        completed
+                    {% elif project.status == 'ongoing' %}
+                        ongoing
+                    {% else %}
+                        planned
+                    {% endif %}
+                ">
+
+                    <span></span>
+
+                    {{ project.get_status_display }}
+
+                </div>
+
+
+                {% if project.year %}
+
+                <div class="detail-meta-item">
+
+                    <i class="far fa-calendar"></i>
+
+                    {{ project.year }}
+
+                </div>
+
+                {% endif %}
+
+
+                {% if project.role %}
+
+                <div class="detail-meta-item">
+
+                    <i class="far fa-user"></i>
+
+                    {{ project.role }}
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- IMAGE PRINCIPALE -->
+    <!-- ================================================= -->
+
+    <div class="project-detail-container">
+
+        <div class="project-main-image">
+
+            {% if project.image %}
+
+            <img
+                src="{{ project.image.url }}"
+                alt="{{ project.title }}"
+            >
+
+            {% else %}
+
+            <div class="project-no-image">
+
+                <i class="fas fa-image"></i>
+
+                <span>
+                    Aucune image disponible
+                </span>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- INFORMATIONS RAPIDES -->
+        <!-- ================================================= -->
+
+        <div class="project-info-grid">
+
+            <div class="project-info-card">
+
+                <div class="info-card-icon blue">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+
+                <div>
+
+                    <span class="info-label">
+                        CATÉGORIE
+                    </span>
+
+                    <strong>
+                        {{ project.get_category_display }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="project-info-card">
+
+                <div class="info-card-icon green">
+                    <i class="fas fa-circle-check"></i>
+                </div>
+
+                <div>
+
+                    <span class="info-label">
+                        STATUT
+                    </span>
+
+                    <strong>
+                        {{ project.get_status_display }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="project-info-card">
+
+                <div class="info-card-icon orange">
+                    <i class="fas fa-calendar"></i>
+                </div>
+
+                <div>
+
+                    <span class="info-label">
+                        ANNÉE
+                    </span>
+
+                    <strong>
+                        {% if project.year %}
+                            {{ project.year }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="project-info-card">
+
+                <div class="info-card-icon purple">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+
+                <div>
+
+                    <span class="info-label">
+                        MON RÔLE
+                    </span>
+
+                    <strong>
+                        {% if project.role %}
+                            {{ project.role }}
+                        {% else %}
+                            Développement
+                        {% endif %}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- CONTENU PRINCIPAL -->
+        <!-- ================================================= -->
+
+        <div class="project-detail-layout">
+
+            <main class="project-detail-main">
+
+                <section class="detail-section">
+
+                    <span class="detail-section-label">
+                        PRÉSENTATION
+                    </span>
+
+                    <h2>
+                        À propos du projet
+                    </h2>
+
+                    <div class="detail-section-line"></div>
+
+
+                    <div class="detail-description">
+
+                        {{ project.description|linebreaks }}
+
+                    </div>
+
+                </section>
+
+
+                <!-- TECHNOLOGIES -->
+
+                {% with technologies=project.technologies.all %}
+
+                    {% if technologies %}
+
+                    <section class="detail-section">
+
+                     <span class="detail-section-label">
+                        ENVIRONNEMENT TECHNIQUE
+                     </span>
+
+                        <h2>
+                             Technologies utilisées
+                        </h2>
+
+                        <div class="detail-section-line"></div>
+
+                        <div class="detail-technologies">
+
+                            {% for technology in technologies %}
+
+                                <div class="detail-technology">
+
+                                    <div class="technology-detail-icon">
+                                         <i class="fas fa-code"></i>
+                                    </div>
+
+                                    <span>
+                                        {{ technology.name }}
+                                    </span>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </section>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+                <!-- PHILOSOPHIE -->
+
+                <section class="detail-project-quote">
+
+                    <i class="fas fa-quote-left"></i>
+
+                    <p>
+                        Un projet réussi ne se limite pas à
+                        produire une solution technique :
+                        il doit répondre efficacement aux
+                        besoins auxquels il est destiné.
+                    </p>
+
+                </section>
+
+            </main>
+
+
+            <!-- ================================================= -->
+            <!-- SIDEBAR -->
+            <!-- ================================================= -->
+
+            <aside class="project-detail-sidebar">
+
+                <div class="sidebar-card">
+
+                    <span class="sidebar-label">
+                        LE PROJET
+                    </span>
+
+                    <h3>
+                        Informations
+                    </h3>
+
+
+                    <div class="sidebar-item">
+
+                        <i class="fas fa-layer-group"></i>
+
+                        <div>
+
+                            <small>
+                                Catégorie
+                            </small>
+
+                            <strong>
+                                {{ project.get_category_display }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sidebar-item">
+
+                        <i class="fas fa-clock"></i>
+
+                        <div>
+
+                            <small>
+                                Statut
+                            </small>
+
+                            <strong>
+                                {{ project.get_status_display }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if project.year %}
+
+                    <div class="sidebar-item">
+
+                        <i class="fas fa-calendar"></i>
+
+                        <div>
+
+                            <small>
+                                Année
+                            </small>
+
+                            <strong>
+                                {{ project.year }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if project.role %}
+
+                    <div class="sidebar-item">
+
+                        <i class="fas fa-user"></i>
+
+                        <div>
+
+                            <small>
+                                Mon rôle
+                            </small>
+
+                            <strong>
+                                {{ project.role }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- LIENS -->
+
+                {% if project.demo_url or project.github_url %}
+
+                <div class="sidebar-card project-links-card">
+
+                    <span class="sidebar-label">
+                        LIENS
+                    </span>
+
+                    <h3>
+                        Explorer le projet
+                    </h3>
+
+
+                    {% if project.demo_url %}
+
+                    <a
+                        href="{{ project.demo_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="project-action primary"
+                    >
+
+                        <i class="fas fa-external-link-alt"></i>
+
+                        Voir le projet
+
+                    </a>
+
+                    {% endif %}
+
+
+                    {% if project.github_url %}
+
+                    <a
+                        href="{{ project.github_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="project-action secondary"
+                    >
+
+                        <i class="fab fa-github"></i>
+
+                        Voir sur GitHub
+
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- RETOUR -->
+
+                <a
+                    href="{% url 'projects' %}"
+                    class="sidebar-back"
+                >
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    Tous les projets
+
+                </a>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'js/project_detail.js' %}"></script>
+
+{% endblock %}

@@ -1,52 +1,584 @@
 {% extends "base.html" %}
+{% load static %}
 
-<section id="projects" class="container py-5">
+{% block title %}
+Mes Projets
+{% endblock %}
 
-    <h2>Mes projets</h2>
+{% block content %}
 
-    <div class="row">
+<link rel="stylesheet" href="{% static 'css/projects.css' %}">
 
-        {% for project in projects %}
+<section class="projects-page">
 
-        <div class="col-md-4">
+    <!-- ========================= -->
+    <!-- HERO -->
+    <!-- ========================= -->
 
-            <div class="card shadow mb-4">
+    <div class="projects-hero">
 
-                {% if project.image %}
-                <img src="{{ project.image.url }}" class="card-img-top">
-                {% endif %}
+        <div class="projects-hero-decoration decoration-left">
+            <i class="fas fa-code"></i>
+        </div>
 
-                <div class="card-body">
+        <div class="projects-hero-decoration decoration-right">
+            <i class="fas fa-laptop-code"></i>
+        </div>
 
-                    <h5>{{ project.title }}</h5>
+        <div class="projects-hero-content">
 
-                    <p>{{ project.description|truncatewords:20 }}</p>
 
-                    <div class="mb-2">
-                        {% for tech in project.technologies.all %}
-                            <span class="badge bg-primary">
-                                {{ tech.name }}
-                            </span>
-                        {% empty %}
-                            <span class="badge bg-secondary">
-                                Aucune technologie
-                            </span>
-                        {% endfor %}
-                    </div>
+            <h1>
+                Mes Projets
+            </h1>
 
-                    <a href="{% url 'project_detail' project.slug %}"
-                       class="btn btn-outline-primary">
-                        Voir les détails
-                    </a>
+            <div class="hero-line"></div>
 
-                </div>
+            <p>
+                Découvrez les projets que j'ai conçus,
+                développés ou pilotés.
+            </p>
+
+            <div class="hero-keywords">
+
+                <span>Développement</span>
+                <span>•</span>
+                <span>Systèmes d'information</span>
+                <span>•</span>
+                <span>Innovation</span>
+                <span>•</span>
+                <span>Management</span>
 
             </div>
 
         </div>
 
-        {% endfor %}
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- FILTRES -->
+    <!-- ========================= -->
+
+    <div class="projects-container">
+
+        <div class="project-filters">
+
+            {% for category in categories %}
+
+            <button
+                class="project-filter {% if forloop.first %}active{% endif %}"
+                data-filter="{{ category.slug }}"
+            >
+
+                <i class="fas {{ category.icon }}"></i>
+
+                <span>
+                    {{ category.name }}
+                </span>
+
+            </button>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- PROJETS MIS EN AVANT -->
+        <!-- ========================= -->
+
+        {% if featured_projects %}
+
+        <div class="projects-section">
+
+            <div class="projects-section-title">
+
+                <i class="fas fa-star"></i>
+
+                <h2>
+                    Projets mis en avant
+                </h2>
+
+            </div>
+
+
+            <div class="featured-projects-grid">
+
+                {% for project in featured_projects %}
+
+                <article
+                    class="featured-project-card project-item"
+                    data-category="{{ project.category }}"
+                >
+
+                    <div class="project-image-wrapper">
+
+                        {% if project.image %}
+
+                        <img
+                            src="{{ project.image.url }}"
+                            alt="{{ project.title }}"
+                            class="project-image"
+                        >
+
+                        {% endif %}
+
+
+                        <div class="project-featured-badge">
+
+                            <i class="fas fa-star"></i>
+
+                            À LA UNE
+
+                        </div>
+
+
+                        <div class="project-status
+                            {% if project.status == 'completed' %}
+                                status-completed
+                            {% elif project.status == 'ongoing' %}
+                                status-ongoing
+                            {% else %}
+                                status-planned
+                            {% endif %}
+                        ">
+
+                            <span></span>
+
+                            {{ project.get_status_display }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <span class="project-category">
+
+                            {{ project.get_category_display }}
+
+                        </span>
+
+
+                        <h3>
+                            {{ project.title }}
+                        </h3>
+
+
+                        <p class="project-description">
+
+                            {{ project.description|truncatewords:30 }}
+
+                        </p>
+
+
+                        <div class="project-technologies">
+
+                            {% for technology in project.technologies.all %}
+
+                            <span>
+                                {{ technology.name }}
+                            </span>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <div class="project-meta">
+
+                            {% if project.year %}
+
+                            <span>
+                                <i class="far fa-calendar"></i>
+                                {{ project.year }}
+                            </span>
+
+                            {% endif %}
+
+
+                            {% if project.role %}
+
+                            <span>
+                                <i class="far fa-user"></i>
+                                {{ project.role }}
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <a
+                            href="{% url 'project_detail' project.slug %}"
+                            class="project-link"
+                        >
+
+                            Voir le projet
+
+                            <i class="fas fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ========================= -->
+        <!-- TOUS LES PROJETS -->
+        <!-- ========================= -->
+
+        <div class="projects-section">
+
+            <div class="projects-section-title">
+
+                <i class="fas fa-layer-group"></i>
+
+                <h2>
+                    Tous les projets
+                </h2>
+
+            </div>
+
+
+            <div class="projects-grid">
+
+                {% for project in projects %}
+
+                <article
+                    class="project-card project-item"
+                    data-category="{{ project.category }}"
+                >
+
+                    <div class="project-card-image">
+
+                        {% if project.image %}
+
+                        <img
+                            src="{{ project.image.url }}"
+                            alt="{{ project.title }}"
+                        >
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="project-card-content">
+
+                        <div class="project-card-top">
+
+                            <span class="project-card-category">
+
+                                {{ project.get_category_display }}
+
+                            </span>
+
+
+                            <span class="project-card-status
+                                {% if project.status == 'completed' %}
+                                    completed
+                                {% elif project.status == 'ongoing' %}
+                                    ongoing
+                                {% else %}
+                                    planned
+                                {% endif %}
+                            ">
+
+                                <span></span>
+
+                                {{ project.get_status_display }}
+
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            {{ project.title }}
+                        </h3>
+
+
+                        <p>
+                            {{ project.description|truncatewords:20 }}
+                        </p>
+
+
+                        <div class="project-card-technologies">
+
+                            {% for technology in project.technologies.all|slice:":4" %}
+
+                            <span>
+                                {{ technology.name }}
+                            </span>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <div class="project-card-footer">
+
+                            {% if project.year %}
+
+                            <span>
+                                <i class="far fa-calendar"></i>
+                                {{ project.year }}
+                            </span>
+
+                            {% endif %}
+
+
+                            {% if project.role %}
+
+                            <span>
+                                <i class="far fa-user"></i>
+                                {{ project.role }}
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <a
+                            href="{% url 'project_detail' project.slug %}"
+                            class="project-card-link"
+                        >
+
+                            Voir le projet
+
+                            <i class="fas fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+                {% empty %}
+
+                <div class="projects-empty">
+
+                    <i class="fas fa-folder-open"></i>
+
+                    <h3>
+                        Aucun projet disponible
+                    </h3>
+
+                    <p>
+                        Ajoutez vos projets depuis l'administration Django.
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- STATISTIQUES -->
+        <!-- ========================= -->
+
+        <section class="projects-stats">
+
+            <div class="project-stat">
+
+                <div class="stat-icon blue">
+                    <i class="fas fa-folder"></i>
+                </div>
+
+                <div>
+                    <strong>
+                        {{ project_count }}
+                    </strong>
+
+                    <span>
+                        Projets réalisés
+                    </span>
+
+                    <small>
+                        Solutions livrées avec succès
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="project-stat">
+
+                <div class="stat-icon green">
+                    <i class="fas fa-globe"></i>
+                </div>
+
+                <div>
+                    <strong>
+                        {{ web_count }}
+                    </strong>
+
+                    <span>
+                        Projets Web
+                    </span>
+
+                    <small>
+                        Applications et sites web
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="project-stat">
+
+                <div class="stat-icon orange">
+                    <i class="fas fa-database"></i>
+                </div>
+
+                <div>
+                    <strong>
+                        {{ information_system_count }}
+                    </strong>
+
+                    <span>
+                        Systèmes d'information
+                    </span>
+
+                    <small>
+                        Conception et développement
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="project-stat">
+
+                <div class="stat-icon purple">
+                    <i class="fas fa-users"></i>
+                </div>
+
+                <div>
+                    <strong>
+                        {{ category_count }}
+                    </strong>
+
+                    <span>
+                        Domaines d'expertise
+                    </span>
+
+                    <small>
+                        Couverture complète
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- PHILOSOPHIE -->
+        <!-- ========================= -->
+
+        <section class="project-philosophy">
+
+            <div class="philosophy-quote">
+
+                <i class="fas fa-quote-left"></i>
+
+            </div>
+
+
+            <div class="philosophy-main">
+
+                <span>
+                    Ma philosophie
+                </span>
+
+                <p>
+                    Transformer les besoins en solutions numériques
+                    concrètes, performantes et durables.
+                </p>
+
+            </div>
+
+
+            <div class="philosophy-item">
+
+                <i class="fas fa-lightbulb"></i>
+
+                <div>
+
+                    <strong>
+                        Comprendre
+                    </strong>
+
+                    <small>
+                        Analyse approfondie des besoins
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="philosophy-item">
+
+                <i class="fas fa-draw-polygon"></i>
+
+                <div>
+
+                    <strong>
+                        Concevoir
+                    </strong>
+
+                    <small>
+                        Architecture robuste et évolutive
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="philosophy-item">
+
+                <i class="fas fa-box-open"></i>
+
+                <div>
+
+                    <strong>
+                        Livrer
+                    </strong>
+
+                    <small>
+                        Solutions de qualité à forte valeur ajoutée
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
 
     </div>
 
 </section>
+
+<script src="{% static 'js/projects.js' %}"></script>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import ContactForm
 from .models import Profile, Skill, Project, Service, Experience, Education, Technology
 
 from django.shortcuts import get_object_or_404
@@ -166,32 +167,137 @@ def skills(request):
 
 
 def projects(request):
-    return render(
-        request,
-        "projects.html",
+
+    projects = Project.objects.prefetch_related(
+        "technologies"
+    ).all()
+
+    categories = [
         {
-            "projects": Project.objects.all()
-        }
-    )
+            "slug": "all",
+            "name": "Tous",
+            "icon": "fa-grid-2",
+        },
+        {
+            "slug": "web",
+            "name": "Développement Web",
+            "icon": "fa-globe",
+        },
+        {
+            "slug": "software",
+            "name": "Logiciel",
+            "icon": "fa-code",
+        },
+        {
+            "slug": "information_system",
+            "name": "Systèmes d'Information",
+            "icon": "fa-sitemap",
+        },
+        {
+            "slug": "management",
+            "name": "Management",
+            "icon": "fa-briefcase",
+        },
+        {
+            "slug": "data",
+            "name": "Data & BD",
+            "icon": "fa-database",
+        },
+        {
+            "slug": "social",
+            "name": "Innovation Sociale",
+            "icon": "fa-hand-holding-heart",
+        },
+    ]
 
-
-def contact(request):
-    return render(request, "includes/contact.html")
-
-
-def project_detail(request, slug):
-
-    project = get_object_or_404(
-        Project,
-        slug=slug
+    featured_projects = projects.filter(
+        featured=True
     )
 
     context = {
-        "project": project
+        "projects": projects,
+        "featured_projects": featured_projects,
+        "categories": categories,
+
+        "project_count": projects.count(),
+
+        "web_count": projects.filter(
+            category="web"
+        ).count(),
+
+        "information_system_count": projects.filter(
+            category="information_system"
+        ).count(),
+
+        "category_count": projects.values(
+            "category"
+        ).distinct().count(),
     }
 
     return render(
         request,
-        "includes/project_detail.html",
+        "projects.html",
         context
     )
+
+
+def contact(request):
+
+    if request.method == "POST":
+
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+
+            return render(
+                request,
+                "contact.html",
+                {
+                    "form": ContactForm(),
+                    "success": True,
+
+                    "contact_email": "christiandimemou@gmail.com",
+                    "contact_phone": "+237 680507683 / 699421701",
+                    "contact_location": "Cameroun",
+                    "contact_hours": "Lun - Ven : 8h00 - 18h00",
+                }
+            )
+
+    else:
+
+        form = ContactForm()
+
+    context = {
+        "form": form,
+
+        "contact_email": "christiandimemou@gmail.com",
+        "contact_phone": "+237 680507683 / 699421701",
+        "contact_location": "Cameroun",
+        "contact_hours": "Lun - Ven : 8h00 - 18h00",
+    }
+
+    return render(
+        request,
+        "contact.html",
+        context
+    )
+
+def project_detail(request, slug):
+
+    project = get_object_or_404(
+        Project.objects.prefetch_related("technologies"),
+        slug=slug
+    )
+
+    context = {
+        "project": project,
+    }
+
+    return render(
+        request,
+        "project_detail.html",
+        context
+    )
+

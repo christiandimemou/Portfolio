@@ -12,13 +12,10 @@ from .models import (
 
 
 admin.site.register(Profile)
-admin.site.register(Project)
 admin.site.register(Experience)
 admin.site.register(Education)
-admin.site.register(Contact)
 admin.site.register(Technology)
 @admin.register(Service)
-
 class ServiceAdmin(admin.ModelAdmin):
 
     list_display = (
@@ -62,4 +59,78 @@ class SkillAdmin(admin.ModelAdmin):
     list_editable = (
         "percentage",
         "order",
+    )
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "title",
+        "category",
+        "status",
+        "year",
+        "featured",
+        "order",
+    )
+
+    list_filter = (
+        "category",
+        "status",
+        "featured",
+    )
+
+    search_fields = (
+        "title",
+        "description",
+    )
+
+    prepopulated_fields = {
+        "slug": ("title",)
+    }
+
+    filter_horizontal = (
+        "technologies",
+    )
+
+    list_editable = (
+        "status",
+        "featured",
+        "order",
+    )
+
+    ordering = (
+        "-featured",
+        "order",
+        "-created_at",
+    )
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "name",
+        "email",
+        "subject",
+        "created_at",
+        "is_read",
+    )
+
+    list_filter = (
+        "is_read",
+        "created_at",
+    )
+
+    search_fields = (
+        "name",
+        "email",
+        "subject",
+        "message",
+    )
+
+    list_editable = (
+        "is_read",
+    )
+
+    ordering = (
+        "-created_at",
     )

@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.text import slugify
+
 
 
 class Profile(models.Model):
@@ -178,27 +178,116 @@ class Technology(models.Model):
         return self.name
     
 class Project(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True, null=True)
-    description = models.TextField()
-    image = models.ImageField(upload_to="projects/")
-    technologies = models.ManyToManyField(
-    Technology,
-    related_name="projects",
-    blank=True
+
+    CATEGORY_CHOICES = [
+        ("web", "Développement Web"),
+        ("software", "Développement Logiciel"),
+        ("information_system", "Systèmes d'Information"),
+        ("management", "Management & Gestion"),
+        ("data", "Data & Bases de Données"),
+        ("social", "Innovation Sociale"),
+    ]
+
+    STATUS_CHOICES = [
+        ("completed", "Terminé"),
+        ("ongoing", "En cours"),
+        ("planned", "À venir"),
+    ]
+
+    title = models.CharField(
+        max_length=200,
+        verbose_name="Nom du projet"
     )
-    github_url = models.URLField(blank=True)
-    demo_url = models.URLField(blank=True)
-    created_at = models.DateField()
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
+    slug = models.SlugField(
+        unique=True,
+        blank=True,
+        null=True,
+        verbose_name="URL"
+    )
 
-            super().save(*args, **kwargs)
+    description = models.TextField(
+        verbose_name="Description"
+    )
+
+    image = models.ImageField(
+        upload_to="projects/",
+        verbose_name="Image du projet"
+    )
+
+    technologies = models.ManyToManyField(
+        Technology,
+        related_name="projects",
+        blank=True,
+        verbose_name="Technologies"
+    )
+
+    github_url = models.URLField(
+        blank=True,
+        verbose_name="Lien GitHub"
+    )
+
+    demo_url = models.URLField(
+        blank=True,
+        verbose_name="Lien de démonstration"
+    )
+
+    created_at = models.DateField(
+        auto_now_add=True,
+        verbose_name="Date de création"
+    )
+
+    category = models.CharField(
+        max_length=30,
+        choices=CATEGORY_CHOICES,
+        default="web",
+        verbose_name="Catégorie"
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="ongoing",
+        verbose_name="Statut"
+    )
+
+    role = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Mon rôle"
+    )
+
+    year = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Année du projet"
+    )
+
+    featured = models.BooleanField(
+        default=False,
+        verbose_name="Projet mis en avant"
+    )
+
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Ordre d'affichage"
+    )
+
+    class Meta:
+        ordering = ["-featured", "order", "-created_at"]
+        verbose_name = "Projet"
+        verbose_name_plural = "Projets"
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.title)
+
+        super().save(*args, **kwargs)
 
 
 class Experience(models.Model):
@@ -223,11 +312,39 @@ class Education(models.Model):
 
 
 class Contact(models.Model):
-    name = models.CharField(max_length=150)
-    email = models.EmailField()
-    subject = models.CharField(max_length=200)
-    message = models.TextField()
-    sent_at = models.DateTimeField(auto_now_add=True)
+
+    name = models.CharField(
+        max_length=150,
+        verbose_name="Nom"
+    )
+
+    email = models.EmailField(
+        verbose_name="Adresse e-mail"
+    )
+
+    subject = models.CharField(
+        max_length=200,
+        verbose_name="Sujet"
+    )
+
+    message = models.TextField(
+        verbose_name="Message"
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Date d'envoi"
+    )
+
+    is_read = models.BooleanField(
+        default=False,
+        verbose_name="Message lu"
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Message de contact"
+        verbose_name_plural = "Messages de contact"
 
     def __str__(self):
-        return self.subject
+        return f"{self.name} - {self.subject}"
