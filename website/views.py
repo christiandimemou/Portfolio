@@ -10,41 +10,171 @@ def home(request):
 
     profile = Profile.objects.first()
 
-    skills = Skill.objects.all()
-
-    projects = Project.objects.all()
-
-    services = Service.objects.all()
-
     context = {
         "profile": profile,
-        "skills": skills,
-        "projects": projects,
-        "services": services,
     }
 
-    return render(request, "home.html", context)
+    return render(
+        request,
+        "home.html",
+        context
+    )
 
 def about(request):
+
     profile = Profile.objects.first()
+
     education = Education.objects.all()
+
     experiences = Experience.objects.all()
 
+    projects_count = Project.objects.count()
+    skills_count = Skill.objects.count()
+    education_count = education.count()
+    experience_count = experiences.count()
+
     context = {
+
         "profile": profile,
+
         "education": education,
+
         "experiences": experiences,
+
+        # =================================================
+        # STATISTIQUES
+        # =================================================
+
+        "projects_count": projects_count,
+
+        "skills_count": skills_count,
+
+        "education_count": education_count,
+
+        "experience_count": experience_count,
+
+        # =================================================
+        # INFORMATIONS DE CONTACT
+        # =================================================
+
+        "contact_email": "christiandimemou@gmail.com",
+
+        "contact_phone": "+237 680507683/699421701",
+
+        "contact_location": "Cameroun",
+
+        "contact_availability": "Ouvert aux opportunités",
     }
 
-    return render(request, "about.html", context)
+    return render(
+        request,
+        "about.html",
+        context
+    )
 
 
 def services(request):
 
     services = Service.objects.all()
 
+    # =====================================================
+    # AVANTAGES
+    # =====================================================
+
+    benefits = [
+        {
+            "icon": "fa-bolt",
+            "title": "Solutions sur mesure",
+            "description": "Des solutions adaptées à vos besoins réels.",
+        },
+        {
+            "icon": "fa-shield-halved",
+            "title": "Qualité & Fiabilité",
+            "description": "Code propre, sécurisé et performant.",
+        },
+        {
+            "icon": "fa-clock",
+            "title": "Respect des délais",
+            "description": "Livraison dans les temps avec transparence.",
+        },
+        {
+            "icon": "fa-headset",
+            "title": "Support & Suivi",
+            "description": "Accompagnement même après la livraison.",
+        },
+    ]
+
+    # =====================================================
+    # PROCESSUS DE TRAVAIL
+    # =====================================================
+
+    process_steps = [
+        {
+            "number": "01",
+            "icon": "fa-magnifying-glass",
+            "title": "Analyse",
+            "description": (
+                "Compréhension de vos besoins "
+                "et analyse de votre projet."
+            ),
+            "color": "blue",
+        },
+        {
+            "number": "02",
+            "icon": "fa-pen-ruler",
+            "title": "Conception",
+            "description": (
+                "Conception de l'architecture "
+                "et définition de la solution adaptée."
+            ),
+            "color": "green",
+        },
+        {
+            "number": "03",
+            "icon": "fa-code",
+            "title": "Développement",
+            "description": (
+                "Développement, tests et intégration "
+                "des fonctionnalités."
+            ),
+            "color": "purple",
+        },
+        {
+            "number": "04",
+            "icon": "fa-rocket",
+            "title": "Déploiement",
+            "description": (
+                "Mise en production et déploiement "
+                "dans votre environnement."
+            ),
+            "color": "orange",
+        },
+        {
+            "number": "05",
+            "icon": "fa-headset",
+            "title": "Support",
+            "description": (
+                "Suivi, support et évolution continue "
+                "de votre solution."
+            ),
+            "color": "blue",
+        },
+    ]
+
+    # =====================================================
+    # TECHNOLOGIES
+    # =====================================================
+
+    technologies = Technology.objects.all()
+
     context = {
-        "services": services
+        "services": services,
+        "benefits": benefits,
+        "process_steps": process_steps,
+        "technologies": technologies,
+
+        "service_count": services.count(),
+        "technology_count": technologies.count(),
     }
 
     return render(

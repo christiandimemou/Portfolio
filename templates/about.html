@@ -1,227 +1,722 @@
 {% extends "base.html" %}
-
-{% block title %}
-À propos
-{% endblock %}
+{% load static %}
 
 {% block content %}
 
-<section class="about-section">
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
 
-    <div class="container">
 
-        <div class="text-center mb-5">
+<div class="about-page">
 
-            <h1 class="section-title">
-                À propos de moi
-            </h1>
 
-            <p class="section-subtitle">
-                Découvrez mon parcours, mes compétences et ma vision.
-            </p>
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-        </div>
-    
-        <div class="row align-items-center">
+    <section class="about-hero">
 
-            <div class="col-lg-4 text-center">
+        <div class="about-container">
 
-                {% if profile.photo %}
-            
-                <div class="about-photo-card">
-            
-                    <img src="{{ profile.photo.url }}"
-                         class="about-photo"
-                         alt="{{ profile.first_name }}">
-            
+            <!-- Décorations -->
+
+            <div class="about-decoration about-decoration-left">
+                <i class="fa-regular fa-user"></i>
+            </div>
+
+            <div class="about-decoration about-decoration-right">
+                <i class="fa-solid fa-code"></i>
+            </div>
+
+
+            <div class="about-hero-grid">
+
+
+                <!-- PHOTO -->
+
+                <div class="about-photo-wrapper">
+
+                    <div class="about-photo-glow"></div>
+
+                    <div class="about-photo-frame">
+
+                        {% if profile.photo %}
+
+                            <img
+                                src="{{ profile.photo.url }}"
+                                alt="Photo de profil"
+                                class="about-photo"
+                            >
+
+                        {% else %}
+
+                            <div class="about-photo-placeholder">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
                 </div>
-            
-                {% endif %}
-            
+
+
+                <!-- PRESENTATION -->
+
+                <div class="about-introduction">
+
+                    <h1>
+                        Qui suis-je ?
+                    </h1>
+
+                    <div class="about-title-line"></div>
+
+
+                    <p class="about-lead">
+
+                        Analyste des SI et IT Manager passionné,
+                        j'administre les Technologies de l'Information, je conçois et réalise des solutions
+                        numériques sur mesure qui répondent
+                        aux besoins des entreprises et génèrent
+                        de la valeur.
+
+                    </p>
+
+
+                    <p>
+
+                        Fort d'une expérience dans l'analyse,
+                        l'architecture des systèmes d'information
+                        et la gestion de projets IT, j'accompagne
+                        les organisations dans leur transformation
+                        numérique.
+
+                    </p>
+
+
+                    <!-- INFORMATIONS -->
+
+                    <div class="about-contact-grid">
+
+
+                        <div class="about-contact-item">
+
+                            <div class="about-contact-icon blue">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+
+                            <div>
+                                <span>Email</span>
+                                <strong>
+                                    {{ contact_email }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-contact-item">
+
+                            <div class="about-contact-icon green">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+
+                            <div>
+                                <span>Téléphone</span>
+                                <strong>
+                                    {{ contact_phone }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-contact-item">
+
+                            <div class="about-contact-icon purple">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+
+                            <div>
+                                <span>Localisation</span>
+                                <strong>
+                                    {{ contact_location }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-contact-item">
+
+                            <div class="about-contact-icon orange">
+                                <i class="fa-regular fa-calendar-check"></i>
+                            </div>
+
+                            <div>
+                                <span>Disponibilité</span>
+                                <strong>
+                                    {{ contact_availability }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
             </div>
-        
-            <div class="col-lg-8">
-        
-                <h2>
-        
-                    {{ profile.first_name }}
-        
-                    {{ profile.last_name }}
-        
-                </h2>
-        
-                <h5 class="text-primary mb-4">
-        
-                    {{ profile.title }}
-        
-                </h5>
-        
-                <p>
-        
-                    {{ profile.bio }}
-        
-                </p>
-        
-                <a href="#" class="btn btn-primary mt-3">
-        
-                    Télécharger mon CV
-        
-                </a>
-        
-            </div>
-        
+
         </div>
 
-        <section class="py-5">
+    </section>
 
-            <h2 class="section-title text-center mb-5">
-                🎓 Mon parcours académique
-            </h2>
-        
-            <div class="row g-4">
+
+
+    <!-- =====================================================
+         STATISTIQUES
+    ====================================================== -->
+
+    <section class="about-stats-section">
+
+        <div class="about-container">
+
+            <div class="about-stats-grid">
+
+
+                <div class="about-stat">
+
+                    <div class="about-stat-icon blue">
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+
+                    <strong>
+                        {{ experience_count }}
+                    </strong>
+
+                    <h3>
+                        Expériences
+                    </h3>
+
+                    <span>
+                        Parcours professionnel
+                    </span>
+
+                </div>
+
+
+                <div class="about-stat">
+
+                    <div class="about-stat-icon green">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+
+                    <strong>
+                        {{ projects_count }}
+                    </strong>
+
+                    <h3>
+                        Projets réalisés
+                    </h3>
+
+                    <span>
+                        Solutions web et systèmes
+                    </span>
+
+                </div>
+
+
+                <div class="about-stat">
+
+                    <div class="about-stat-icon purple">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <strong>
+                        {{ education_count }}
+                    </strong>
+
+                    <h3>
+                        Formations
+                    </h3>
+
+                    <span>
+                        Parcours académique
+                    </span>
+
+                </div>
+
+
+                <div class="about-stat">
+
+                    <div class="about-stat-icon orange">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <strong>
+                        {{ skills_count }}
+                    </strong>
+
+                    <h3>
+                        Compétences
+                    </h3>
+
+                    <span>
+                        Technologies & expertise
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FORMATION
+    ====================================================== -->
+
+    <section class="about-section education-section">
+
+        <div class="about-container">
+
+
+            <div class="about-section-heading">
+
+                <span>
+                    PARCOURS ACADÉMIQUE
+                </span>
+
+                <h2>
+                    Ma formation
+                </h2>
+
+                <p>
+                    Un parcours construit autour de de la gestion des technologies de l'informatique,
+                    de l'analyse des systèmes
+                    d'information et du développement web.
+                </p>
+
+            </div>
+
+
+            <div class="timeline">
+
 
                 {% for item in education %}
-            
-                <div class="col-lg-4 col-md-6 d-flex">
-            
-                    <div class="formation-card h-100 w-100">
-            
-                        <div class="card-icon">
-                            <i class="fas fa-graduation-cap"></i>
+
+                <div
+                    class="timeline-item
+                    {% if forloop.counter|divisibleby:2 %}
+                        timeline-right
+                    {% else %}
+                        timeline-left
+                    {% endif %}"
+                >
+
+                    <div class="timeline-dot">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                    </div>
+
+
+                    <div class="timeline-card">
+
+
+                        <div class="timeline-icon">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
                         </div>
 
-                        <h6 >
-                            {{ item.school }}
-                        </h6>
-            
-                        <h4 class="text-primary">{{ item.diploma }}</h4>                      
 
-                        <small class="text-muted">
-                                 {{ item.start_year }} - {{ item.end_year }}
-                        </small>
-                                  
-            
-                    </div>
-            
-                </div>
-            
-                {% endfor %}
-            
-            </div>
-        
-        </section>
-        <section class="py-5">
+                        <div class="timeline-content">
 
-            <h2 class="section-title text-center mb-5">
-                💼 Mon expérience professionnelle
-            </h2>
-        
-            <div class="row g-4">
+                            <h3>
+                                {{ item.diploma }}
+                            </h3>
 
-                {% for exp in experiences %}
-            
-                <div class="col-lg-4 col-md-6 d-flex">
-            
-                    <div class="experience-card h-100 w-100">
-            
-                        <div class="card-icon">
-                            <i class="fas fa-briefcase"></i>
+                            <span class="timeline-type">
+                                Formation académique
+                            </span>
+
+                            <strong class="timeline-school">
+                                {{ item.school }}
+                            </strong>
+
+                            <span class="timeline-date">
+
+                                {{ item.start_year }}
+
+                                -
+
+                                {{ item.end_year }}
+
+                            </span>
+
                         </div>
 
-                        <h6 class="text-primary">
-                            {{ exp.company }}
-                        </h6>
 
-                        <small class="text-muted">
-                            {{ exp.start_date }} - {{ exp.end_date }}
-                        </small>
-            
-                        <h4>{{ exp.position }}</h4>
-            
-                        <p class="card-description">
-                            {{ exp.description }}
-                        </p>
-            
+                        <div class="timeline-description">
+
+                            {% if item.diploma %}
+                                <p>
+                                    Formation en lien avec
+                                    l'informatique, les technologies
+                                    et le développement des systèmes.
+                                </p>
+                            {% endif %}
+
+                        </div>
+
                     </div>
-            
+
                 </div>
-            
+
+                {% empty %}
+
+                <div class="about-empty">
+
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                    <h3>
+                        Parcours académique
+                    </h3>
+
+                    <p>
+                        Les formations seront bientôt disponibles.
+                    </p>
+
+                </div>
+
                 {% endfor %}
-            
+
+
             </div>
-        
-        </section>
 
-                <section class="stats-section">
+        </div>
 
-                    <div class="row text-center">
-                    
-                    <div class="col-md-3">
-                    
-                    <h2>
-                    
-                    10+
-                    
-                    </h2>
-                    
+    </section>
+
+
+
+    <!-- =====================================================
+         EXPERIENCES
+    ====================================================== -->
+
+    <section class="about-section experience-section">
+
+        <div class="about-container">
+
+
+            <div class="about-section-heading">
+
+                <span>
+                    EXPÉRIENCES PROFESSIONNELLES
+                </span>
+
+                <h2>
+                    Mon expérience
+                </h2>
+
+                <p>
+                    Des expériences qui m'ont permis de développer
+                    une vision à la fois technique et managériale
+                    des projets IT.
+                </p>
+
+            </div>
+
+
+            <div class="timeline">
+
+
+                {% for item in experiences %}
+
+                <div
+                    class="timeline-item
+                    {% if forloop.counter|divisibleby:2 %}
+                        timeline-right
+                    {% else %}
+                        timeline-left
+                    {% endif %}"
+                >
+
+                    <div class="timeline-dot experience-dot">
+
+                        <i class="fa-solid fa-briefcase"></i>
+
+                    </div>
+
+
+                    <div class="timeline-card">
+
+
+                        <div class="timeline-icon experience-icon">
+
+                            <i class="fa-solid fa-briefcase"></i>
+
+                        </div>
+
+
+                        <div class="timeline-content">
+
+                            <h3>
+                                {{ item.position }}
+                            </h3>
+
+                            <span class="timeline-type">
+                                Expérience professionnelle
+                            </span>
+
+                            <strong class="timeline-school">
+                                {{ item.company }}
+                            </strong>
+
+                            <span class="timeline-date">
+
+                                {{ item.start_year }}
+
+                                -
+
+                                {{ item.end_year }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="timeline-description">
+
+                            {% if item.description %}
+
+                                <p>
+                                    {{ item.description }}
+                                </p>
+
+                            {% else %}
+
+                                <p>
+                                    Participation au développement,
+                                    à la gestion et à l'amélioration
+                                    de solutions informatiques.
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <div class="about-empty">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    <h3>
+                        Expériences professionnelles
+                    </h3>
+
                     <p>
-                    
-                    Projets
-                    
+                        Les expériences seront bientôt disponibles.
                     </p>
-                    
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         VALEURS
+    ====================================================== -->
+
+    <section class="about-section values-section">
+
+        <div class="about-container">
+
+
+            <div class="about-section-heading">
+
+                <span>
+                    VALEURS & APPROCHE
+                </span>
+
+                <h2>
+                    Ce qui m'anime
+                </h2>
+
+            </div>
+
+
+            <div class="values-grid">
+
+
+                <div class="value-card blue">
+
+                    <div class="value-icon">
+
+                        <i class="fa-solid fa-bullseye"></i>
+
                     </div>
-                    
-                    <div class="col-md-3">
-                    
-                    <h2>
-                    
-                    5+
-                    
-                    </h2>
-                    
+
+                    <h3>
+                        Excellence
+                    </h3>
+
                     <p>
-                    
-                    Technologies
-                    
+                        Je m'engage à fournir des solutions
+                        de haute qualité, robustes et
+                        performantes.
                     </p>
-                    
+
+                </div>
+
+
+                <div class="value-card green">
+
+                    <div class="value-icon">
+
+                        <i class="fa-regular fa-handshake"></i>
+
                     </div>
-                    
-                    <div class="col-md-3">
-                    
-                    <h2>
-                    
-                    2
-                    
-                    </h2>
-                    
+
+                    <h3>
+                        Engagement
+                    </h3>
+
                     <p>
-                    
-                    Années d'expérience
-                    
+                        Je m'investis pleinement dans chaque
+                        projet, avec rigueur et professionnalisme.
                     </p>
-                    
+
+                </div>
+
+
+                <div class="value-card orange">
+
+                    <div class="value-icon">
+
+                        <i class="fa-regular fa-lightbulb"></i>
+
                     </div>
-                    
-                    <div class="col-md-3">
-                    
-                    <h2>
-                    
-                    100%
-                    
-                    </h2>
-                    
+
+                    <h3>
+                        Innovation
+                    </h3>
+
                     <p>
-                    
-                    Motivation
-                    
+                        Je recherche constamment des idées
+                        nouvelles et des technologies innovantes.
                     </p>
-                    
+
+                </div>
+
+
+                <div class="value-card purple">
+
+                    <div class="value-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
                     </div>
-                    
-                    </div>
-                    
-                    </section>
-    
-    {% endblock %}
+
+                    <h3>
+                        Collaboration
+                    </h3>
+
+                    <p>
+                        J'aime travailler en équipe et construire
+                        des relations de confiance durables.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+
+    <section class="about-cta-section">
+
+        <div class="about-container">
+
+            <div class="about-cta">
+
+
+                <div class="about-cta-icon">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </div>
+
+
+                <div class="about-cta-content">
+
+                    <span>
+                        COLLABORATION
+                    </span>
+
+                    <h2>
+                        Envie de collaborer ?
+                    </h2>
+
+                    <p>
+                        Je suis ouvert à de nouveaux projets,
+                        missions et collaborations enrichissantes.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{% url 'contact' %}"
+                    class="about-cta-button"
+                >
+
+                    Me contacter
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script src="{% static 'js/about.js' %}"></script>
+
+{% endblock %}

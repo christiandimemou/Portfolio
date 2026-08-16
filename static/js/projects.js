@@ -160,3 +160,155 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cards = document.querySelectorAll(".service-reveal");
+
+    if (!("IntersectionObserver" in window)) {
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        function (entries, observer) {
+
+            entries.forEach(function (entry) {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("service-visible");
+
+                    observer.unobserve(entry.target);
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+    cards.forEach(function (card, index) {
+
+        card.style.transitionDelay = `${index * 70}ms`;
+
+        observer.observe(card);
+
+    });
+
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cards = document.querySelectorAll(
+        ".timeline-card, .value-card, .about-stat"
+    );
+
+    if (!("IntersectionObserver" in window)) {
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        function (entries, observer) {
+
+            entries.forEach(function (entry) {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add(
+                        "about-visible"
+                    );
+
+                    observer.unobserve(
+                        entry.target
+                    );
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+
+    cards.forEach(function (card, index) {
+
+        card.style.setProperty(
+            "--about-delay",
+            `${index * 70}ms`
+        );
+
+        observer.observe(card);
+
+    });
+
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const photo = document.querySelector(".home-photo");
+
+    if (photo) {
+
+        photo.addEventListener("load", function () {
+
+            photo.classList.add("home-photo-loaded");
+
+        });
+
+    }
+
+
+    /*
+     * Effet léger de mouvement de la zone photo
+     * avec la position de la souris.
+     */
+
+    const photoArea =
+        document.querySelector(".home-photo-area");
+
+
+    if (
+        photoArea &&
+        window.matchMedia("(min-width: 851px)").matches
+    ) {
+
+        photoArea.addEventListener(
+            "mousemove",
+            function (event) {
+
+                const rect =
+                    photoArea.getBoundingClientRect();
+
+                const x =
+                    (event.clientX - rect.left)
+                    / rect.width
+                    - 0.5;
+
+                const y =
+                    (event.clientY - rect.top)
+                    / rect.height
+                    - 0.5;
+
+
+                photoArea.style.transform =
+                    `translate(${x * 6}px, ${y * 6}px)`;
+            }
+        );
+
+
+        photoArea.addEventListener(
+            "mouseleave",
+            function () {
+
+                photoArea.style.transform =
+                    "translate(0, 0)";
+            }
+        );
+
+    }
+
+});

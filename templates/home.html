@@ -1,13 +1,286 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
-
-Christian DIMEMOU
-
+    Accueil | Christian DIMEMOU
 {% endblock %}
+
 
 {% block content %}
 
-{% include "includes/hero.html" %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+
+<div class="home-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="home-hero">
+
+        <!-- Grille technologique -->
+
+        <div class="home-grid"></div>
+
+
+        <!-- Halo gauche -->
+
+        <div class="home-glow home-glow-left"></div>
+
+
+        <!-- Halo droit -->
+
+        <div class="home-glow home-glow-right"></div>
+
+
+        <!-- Décorations -->
+
+        <div class="home-decoration home-decoration-code">
+
+            <i class="fa-solid fa-code"></i>
+
+        </div>
+
+
+        <div class="home-decoration home-decoration-server">
+
+            <i class="fa-solid fa-server"></i>
+
+        </div>
+
+
+        <div class="home-decoration home-decoration-brackets">
+
+            &lt;/&gt;
+
+        </div>
+
+
+
+        <div class="home-container">
+
+
+            <div class="home-content">
+
+
+                <!-- =================================================
+                     PRESENTATION
+                ================================================== -->
+
+                <div class="home-introduction">
+
+
+                    <span class="home-greeting">
+
+                        Bonjour, je suis
+
+                    </span>
+
+
+                    <h1>
+
+                        Christian
+
+                        <span>
+                            DIMEMOU
+                        </span>
+
+                    </h1>
+
+
+                    <div class="home-title-line"></div>
+
+
+                    <h2>
+
+                        IT Manager &amp; Analyste des systèmes d'information 
+
+                    </h2>
+
+
+
+                    <!-- =================================================
+                         BOUTONS
+                    ================================================== -->
+
+                    <div class="home-actions">
+
+
+                        <!-- PROJETS -->
+
+                        <a
+                            href="{% url 'projects' %}"
+                            class="home-button home-button-primary"
+                        >
+
+                            <i class="fa-solid fa-briefcase"></i>
+
+                            <span>
+                                Voir mes projets
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right button-arrow"></i>
+
+                        </a>
+
+
+
+                        <!-- CV -->
+
+                        <a
+                            href="{% static 'documents/CV.pdf' %}"
+                            class="home-button home-button-secondary"
+                            download
+                        >
+
+                            <i class="fa-solid fa-download"></i>
+
+                            <span>
+                                Télécharger mon CV
+                            </span>
+
+                        </a>
+
+
+
+                        <!-- CONTACT -->
+
+                        <a
+                            href="{% url 'contact' %}"
+                            class="home-button home-button-secondary"
+                        >
+
+                            <i class="fa-regular fa-paper-plane"></i>
+
+                            <span>
+                                Me contacter
+                            </span>
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PHOTO
+                ================================================== -->
+
+                <div class="home-photo-area">
+
+
+                    <!-- Halo derrière la photo -->
+
+                    <div class="home-photo-glow"></div>
+
+
+                    <!-- Circuit électronique -->
+
+                    <div class="circuit circuit-top"></div>
+
+                    <div class="circuit circuit-right"></div>
+
+                    <div class="circuit circuit-bottom"></div>
+
+                    <div class="circuit circuit-left"></div>
+
+
+
+                    <!-- Cadre -->
+
+                    <div class="home-photo-frame">
+
+
+                        <!-- coins futuristes -->
+
+                        <span class="photo-corner photo-corner-top-left"></span>
+
+                        <span class="photo-corner photo-corner-top-right"></span>
+
+                        <span class="photo-corner photo-corner-bottom-left"></span>
+
+                        <span class="photo-corner photo-corner-bottom-right"></span>
+
+
+
+                        {% if profile and profile.photo %}
+
+                            <img
+                                src="{{ profile.photo.url }}"
+                                alt="Christian DIMEMOU"
+                                class="home-photo"
+                            >
+
+                        {% else %}
+
+                            <div class="home-photo-placeholder">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- Icônes technologiques -->
+
+                    <div class="tech-orbit tech-orbit-code">
+
+                        <i class="fa-solid fa-code"></i>
+
+                    </div>
+
+
+                    <div class="tech-orbit tech-orbit-database">
+
+                        <i class="fa-solid fa-database"></i>
+
+                    </div>
+
+
+                    <div class="tech-orbit tech-orbit-server">
+
+                        <i class="fa-solid fa-server"></i>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Scroll indicator -->
+
+        <div class="home-scroll">
+
+            <span>
+                Découvrir
+            </span>
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+<script src="{% static 'js/home.js' %}"></script>
 
 {% endblock %}

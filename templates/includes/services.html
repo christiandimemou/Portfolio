@@ -1,237 +1,459 @@
 {% extends "base.html" %}
-
-{% block title %}
-Mes Services
-{% endblock %}
+{% load static %}
 
 {% block content %}
 
-<div class="services-container">
-
-    <!-- ============================= -->
-    <!-- EN-TÊTE -->
-    <!-- ============================= -->
-
-    <header class="services-header">
-
-        <h1>Mes Services</h1>
-
-        <div class="services-header-line"></div>
-
-        <p>
-            Des solutions numériques adaptées aux besoins des organisations,
-            entreprises et projets.
-        </p>
-
-    </header>
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
 
 
-    <!-- ============================= -->
-    <!-- SERVICES -->
-    <!-- ============================= -->
-
-    {% for service in services %}
-
-    <article class="service-card">
-
-        <div class="row g-0 service-row">
-
-            {% if forloop.counter|divisibleby:2 %}
-
-                <!-- ================================= -->
-                <!-- SERVICE PAIR : TEXTE À GAUCHE -->
-                <!-- ================================= -->
-
-                <div class="col-lg-7 order-lg-1 order-2 service-text-column">
-
-                    <div class="service-content">
-
-                        <!-- Icône -->
-
-                        <div class="service-icon-wrapper">
-
-                            <i class="fas {{ service.icon }} service-icon"></i>
-
-                        </div>
+<div class="services-page">
 
 
-                        <!-- Titre -->
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-                        <h2 class="service-title">
+    <section class="services-hero">
 
-                            {{ service.title }}
+        <div class="hero-tech-icon hero-icon-left">
+            <i class="fa-solid fa-briefcase"></i>
+        </div>
 
-                        </h2>
+        <div class="hero-tech-icon hero-icon-right">
+            <i class="fa-solid fa-gear"></i>
+        </div>
 
 
-                        <!-- Petite description -->
+        <div class="services-container">
 
-                        {% if service.short_description %}
+            <div class="hero-content">
 
-                        <p class="service-short-description">
+                <h1>
+                    Ce que je peux faire
+                    <span>pour vous</span>
+                </h1>
 
-                            {{ service.short_description }}
+                <div class="title-line"></div>
 
+                <p>
+                    J'accompagne les entreprises et les particuliers
+                    dans la réalisation de leurs projets grâce à des
+                    solutions numériques sur mesure, performantes
+                    et évolutives.
+                </p>
+
+            </div>
+
+
+            <!-- AVANTAGES -->
+
+            <div class="benefits-grid">
+
+                {% for benefit in benefits %}
+
+                <div class="benefit-item">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid {{ benefit.icon }}"></i>
+                    </div>
+
+                    <div class="benefit-content">
+
+                        <h3>
+                            {{ benefit.title }}
+                        </h3>
+
+                        <p>
+                            {{ benefit.description }}
                         </p>
 
-                        {% endif %}
-
-
-                        <!-- Description complète -->
-
-                        <div class="service-description">
-
-                            {{ service.description|linebreaks }}
-
-                        </div>
-
-
-                        <!-- Bouton -->
-
-                        <a href="{% url 'service_detail' service.slug %}"
-                           class="btn btn-primary service-button">
-
-                            En savoir plus
-
-                            <i class="fas fa-arrow-right"></i>
-
-                        </a>
-
                     </div>
 
                 </div>
 
+                {% endfor %}
 
-                <!-- Image à droite -->
-
-                <div class="col-lg-5 order-lg-2 order-1 service-image-column">
-
-                    {% if service.image %}
-
-                    <div class="service-image-container">
-
-                        <img src="{{ service.image.url }}"
-                             class="service-image"
-                             alt="{{ service.title }}">
-
-                    </div>
-
-                    {% endif %}
-
-                </div>
-
-
-            {% else %}
-
-                <!-- ================================= -->
-                <!-- SERVICE IMPAIR : IMAGE À GAUCHE -->
-                <!-- ================================= -->
-
-                <div class="col-lg-5 service-image-column">
-
-                    {% if service.image %}
-
-                    <div class="service-image-container">
-
-                        <img src="{{ service.image.url }}"
-                             class="service-image"
-                             alt="{{ service.title }}">
-
-                    </div>
-
-                    {% endif %}
-
-                </div>
-
-
-                <!-- Texte à droite -->
-
-                <div class="col-lg-7 service-text-column">
-
-                    <div class="service-content">
-
-                        <!-- Icône -->
-
-                        <div class="service-icon-wrapper">
-
-                            <i class="fas {{ service.icon }} service-icon"></i>
-
-                        </div>
-
-
-                        <!-- Titre -->
-
-                        <h2 class="service-title">
-
-                            {{ service.title }}
-
-                        </h2>
-
-
-                        <!-- Petite description -->
-
-                        {% if service.short_description %}
-
-                        <p class="service-short-description">
-
-                            {{ service.short_description }}
-
-                        </p>
-
-                        {% endif %}
-
-
-                        <!-- Description -->
-
-                        <div class="service-description">
-
-                            {{ service.description|linebreaks }}
-
-                        </div>
-
-
-                        <!-- Bouton -->
-
-                        <a href="{% url 'service_detail' service.slug %}"
-                           class="btn btn-primary service-button">
-
-                            En savoir plus
-
-                            <i class="fas fa-arrow-right"></i>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            {% endif %}
+            </div>
 
         </div>
 
-    </article>
+    </section>
 
 
-    {% empty %}
 
-    <!-- ============================= -->
-    <!-- AUCUN SERVICE -->
-    <!-- ============================= -->
+    <!-- =====================================================
+         DOMAINES D'EXPERTISE
+    ====================================================== -->
 
-    <div class="no-services">
+    <section class="services-section expertise-section">
 
-        <i class="fas fa-briefcase"></i>
+        <div class="services-container">
 
-        <h3>Aucun service disponible</h3>
+            <div class="section-heading">
 
-        <p>
-            Les services seront bientôt disponibles.
-        </p>
+                <span class="section-kicker">
+                    EXPERTISE
+                </span>
 
-    </div>
+                <h2>
+                    Mes domaines d'expertise
+                </h2>
 
-    {% endfor %}
+                <p>
+                    Des services complets pour mener vos projets
+                    numériques au succès.
+                </p>
+
+            </div>
+
+
+            <div class="services-grid">
+
+                {% for service in services %}
+
+                <article
+                    class="service-card service-reveal"
+                    data-index="{{ forloop.counter }}"
+                >
+
+                    <div class="service-card-icon">
+
+                        <i class="fa-solid {{ service.icon }}"></i>
+
+                    </div>
+
+
+                    <div class="service-card-content">
+
+                        <h3>
+                            {{ service.title }}
+                        </h3>
+
+                        <p>
+                            {{ service.short_description }}
+                        </p>
+
+                        <a
+                            href="{% url 'service_detail' service.slug %}"
+                            class="service-link"
+                        >
+                            En savoir plus
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </article>
+
+                {% empty %}
+
+                <div class="empty-services">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <h3>
+                        Aucun service disponible
+                    </h3>
+
+                    <p>
+                        Les services seront bientôt disponibles.
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROCESSUS
+    ====================================================== -->
+
+    <section class="services-section process-section">
+
+        <div class="services-container">
+
+            <div class="section-heading">
+
+                <span class="section-kicker">
+                    MÉTHODOLOGIE
+                </span>
+
+                <h2>
+                    Mon processus de travail
+                </h2>
+
+                <p>
+                    Une approche claire et structurée pour garantir
+                    le succès de chaque projet.
+                </p>
+
+            </div>
+
+
+            <div class="process-wrapper">
+
+                {% for step in process_steps %}
+
+                <div class="process-step">
+
+                    <div class="process-circle {{ step.color }}">
+
+                        <i class="fa-solid {{ step.icon }}"></i>
+
+                        <span class="process-number">
+                            {{ step.number }}
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        {{ step.title }}
+                    </h3>
+
+                    <p>
+                        {{ step.description }}
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TECHNOLOGIES
+    ====================================================== -->
+
+    <section class="services-section technologies-section">
+
+        <div class="services-container">
+
+            <div class="section-heading">
+
+                <span class="section-kicker">
+                    TECHNOLOGIES
+                </span>
+
+                <h2>
+                    Technologies & outils
+                </h2>
+
+                <p>
+                    Un large éventail de technologies modernes
+                    pour concevoir des solutions performantes.
+                </p>
+
+            </div>
+
+
+            <div class="technologies-grid">
+
+                {% for technology in technologies %}
+
+                <div class="technology-card">
+
+                    <div class="technology-icon">
+
+                        <i class="fa-solid {{ technology.icon }}"></i>
+
+                    </div>
+
+                    <span>
+                        {{ technology.name }}
+                    </span>
+
+                </div>
+
+                {% empty %}
+
+                <p class="empty-technologies">
+                    Les technologies seront bientôt affichées.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+
+    <section class="services-section cta-section">
+
+        <div class="services-container">
+
+            <div class="services-cta">
+
+                <div class="cta-icon">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </div>
+
+
+                <div class="cta-content">
+
+                    <span class="section-kicker">
+                        UN NOUVEAU PROJET ?
+                    </span>
+
+                    <h2>
+                        Vous avez un projet en tête ?
+                    </h2>
+
+                    <p>
+                        Discutons-en ! Je suis disponible pour vous
+                        accompagner dans la réussite de vos projets.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{% url 'contact' %}"
+                    class="cta-button"
+                >
+                    Me contacter
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INDICATEURS
+    ====================================================== -->
+
+    <section class="services-section stats-section">
+
+        <div class="services-container">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            {{ service_count }}
+                        </strong>
+
+                        <span>
+                            Services
+                        </span>
+
+                        <p>
+                            Domaines d'intervention
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            {{ technology_count }}
+                        </strong>
+
+                        <span>
+                            Technologies
+                        </span>
+
+                        <p>
+                            Outils et technologies maîtrisés
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            IT
+                        </strong>
+
+                        <span>
+                            Sécurité
+                        </span>
+
+                        <p>
+                            Une attention portée à la fiabilité
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+
+                    <div>
+                        <strong>
+                            24/7
+                        </strong>
+
+                        <span>
+                            Suivi
+                        </span>
+
+                        <p>
+                            Une approche orientée accompagnement
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </div>
+
+
+<script src="{% static 'js/services.js' %}"></script>
 
 {% endblock %}
