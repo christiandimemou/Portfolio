@@ -5502,14 +5502,70 @@ img{
 }
 
 
-.project-description {
-    color: #aebdd0;
+/* =========================================================
+   IMAGE PRINCIPALE DU PROJET
+========================================================= */
 
-    font-size: 0.87rem;
+.project-main-image {
+    width: 100%;
 
-    line-height: 1.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    min-height: 72px;
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(6, 31, 62, 0.92),
+            rgba(2, 13, 28, 0.92)
+        );
+
+    border:
+        1px solid
+        rgba(22, 131, 255, 0.35);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.30);
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.project-main-image img {
+
+    display: block;
+
+    /* IMPORTANT :
+       aucune dimension forcée */
+
+    width: auto;
+    height: auto;
+
+    /* L'image ne dépassera jamais de la zone disponible */
+
+    max-width: 100%;
+
+    /* PAS de max-height */
+
+    object-fit: initial;
+
+    margin: 0 auto;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(0, 0, 0, 0.35);
+
 }
 
 
