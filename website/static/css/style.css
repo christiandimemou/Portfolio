@@ -3155,7 +3155,1001 @@ img{
     border-radius: 50%;
 }
 
+/* =========================================================
+   SERVICE DETAIL
+========================================================= */
 
+.service-detail-page {
+
+    --service-bg: #06101f;
+    --service-card: #0b1727;
+    --service-card-light: #101e31;
+
+    --service-border:
+        rgba(255, 255, 255, 0.08);
+
+    --service-text: #ffffff;
+    --service-muted: #aebdd0;
+
+    --service-primary: #0d6efd;
+    --service-green: #20c997;
+    --service-orange: #ffae00;
+    --service-purple: #9747ff;
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(13, 110, 253, 0.10),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 40%,
+            rgba(32, 201, 151, 0.06),
+            transparent 28%
+        ),
+
+        var(--service-bg);
+
+    color: var(--service-text);
+
+    padding-bottom: 80px;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.service-detail-container {
+
+    width: 92%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.service-detail-hero {
+
+    position: relative;
+
+    padding: 80px 0 60px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(13, 110, 253, 0.11),
+            transparent 50%
+        );
+}
+
+
+/* grille */
+
+.service-detail-hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        radial-gradient(
+            rgba(13, 110, 253, 0.35) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    opacity: 0.15;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   RETOUR
+========================================================= */
+
+.back-services {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 45px;
+
+    color: #8295ad;
+
+    text-decoration: none;
+
+    font-size: 0.85rem;
+
+    transition: 0.3s;
+}
+
+
+.back-services:hover {
+
+    color: var(--service-primary);
+
+    transform: translateX(-4px);
+}
+
+
+/* =========================================================
+   CATÉGORIE
+========================================================= */
+
+.service-detail-category {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--service-primary);
+
+    font-size: 0.78rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   TITRE
+========================================================= */
+
+.service-detail-hero h1 {
+
+    position: relative;
+
+    max-width: 1000px;
+
+    margin: 0;
+
+    font-size:
+        clamp(
+            2.6rem,
+            6vw,
+            5rem
+        );
+
+    line-height: 1.05;
+
+    font-weight: 800;
+
+    letter-spacing: -2px;
+}
+
+
+/* =========================================================
+   LIGNE BLEUE
+========================================================= */
+
+.service-detail-line {
+
+    width: 70px;
+
+    height: 4px;
+
+    margin: 25px 0;
+
+    background: var(--service-primary);
+
+    border-radius: 50px;
+
+    box-shadow:
+        0 0 18px
+        rgba(13, 110, 253, 0.7);
+}
+
+
+/* =========================================================
+   INTRODUCTION
+========================================================= */
+
+.service-detail-intro {
+
+    position: relative;
+
+    max-width: 800px;
+
+    margin: 0;
+
+    color: var(--service-muted);
+
+    font-size: 1.1rem;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   IMAGE PRINCIPALE
+========================================================= */
+
+.service-main-image {
+
+    width: 100%;
+
+    margin-top: 35px;
+
+    padding: 25px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(6, 31, 62, 0.92),
+            rgba(2, 13, 28, 0.92)
+        );
+
+    border:
+        1px solid
+        rgba(22, 131, 255, 0.35);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.30);
+
+    overflow: hidden;
+}
+
+
+/*
+   IMPORTANT :
+
+   On ne force pas la hauteur de l'image.
+   Cela évite de couper les images verticales,
+   horizontales ou carrées.
+*/
+
+.service-main-image img {
+
+    display: block;
+
+    width: auto;
+
+    height: auto;
+
+    max-width: 100%;
+
+    object-fit: contain;
+
+    margin: 0 auto;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.8s ease;
+}
+
+
+.service-main-image:hover img {
+
+    transform: scale(1.015);
+}
+
+
+/* =========================================================
+   ABSENCE D'IMAGE
+========================================================= */
+
+.service-no-image {
+
+    width: 100%;
+
+    min-height: 350px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    color: #60738b;
+}
+
+
+.service-no-image i {
+
+    font-size: 4rem;
+
+    color: var(--service-primary);
+}
+
+
+/* =========================================================
+   INFORMATIONS RAPIDES
+========================================================= */
+
+.service-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin: 25px 0 70px;
+}
+
+
+.service-info-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 20px;
+
+    background:
+        rgba(7, 22, 40, 0.85);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+
+.service-info-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(13, 110, 253, 0.35);
+}
+
+
+/* =========================================================
+   ICÔNES INFORMATIONS
+========================================================= */
+
+.service-info-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    font-size: 1.15rem;
+
+    border-radius: 9px;
+
+    background:
+        rgba(255, 255, 255, 0.04);
+}
+
+
+.service-info-icon.blue {
+
+    color: var(--service-primary);
+}
+
+
+.service-info-icon.green {
+
+    color: var(--service-green);
+}
+
+
+.service-info-icon.orange {
+
+    color: var(--service-orange);
+}
+
+
+.service-info-icon.purple {
+
+    color: var(--service-purple);
+}
+
+
+/* =========================================================
+   TEXTE INFO
+========================================================= */
+
+.service-info-label {
+
+    display: block;
+
+    color: #687d97;
+
+    font-size: 0.6rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 5px;
+}
+
+
+.service-info-card strong {
+
+    display: block;
+
+    color: #dbe5f0;
+
+    font-size: 0.76rem;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   LAYOUT PRINCIPAL
+========================================================= */
+
+.service-detail-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        330px;
+
+    gap: 50px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.service-detail-section {
+
+    margin-bottom: 60px;
+}
+
+
+.service-section-label,
+.service-sidebar-label {
+
+    display: inline-block;
+
+    color: var(--service-primary);
+
+    font-size: 0.7rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.service-detail-section h2 {
+
+    margin:
+        8px 0 15px;
+
+    font-size: 2rem;
+
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   LIGNE SECTION
+========================================================= */
+
+.service-section-line {
+
+    width: 45px;
+
+    height: 3px;
+
+    margin-bottom: 25px;
+
+    background:
+        var(--service-primary);
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.service-detail-description,
+.service-detail-text-block {
+
+    color: var(--service-muted);
+
+    font-size: 0.95rem;
+
+    line-height: 1.9;
+}
+
+
+.service-detail-description p,
+.service-detail-text-block p {
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   BLOC TEXTE
+========================================================= */
+
+.service-detail-text-block {
+
+    padding: 25px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8, 27, 48, 0.95),
+            rgba(4, 17, 31, 0.95)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   QUOTE / PHILOSOPHIE
+========================================================= */
+
+.service-detail-quote {
+
+    position: relative;
+
+    padding: 30px 35px;
+
+    margin-bottom: 30px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(8, 27, 49, 0.95),
+            rgba(4, 17, 32, 0.95)
+        );
+
+    border-left:
+        3px solid
+        var(--service-primary);
+
+    border-radius: 8px;
+}
+
+
+.service-detail-quote i {
+
+    display: block;
+
+    color: var(--service-primary);
+
+    font-size: 1.7rem;
+
+    margin-bottom: 15px;
+}
+
+
+.service-detail-quote p {
+
+    margin: 0;
+
+    color: #c8d4e2;
+
+    font-size: 0.9rem;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.service-detail-sidebar {
+
+    position: sticky;
+
+    top: 100px;
+}
+
+
+/* =========================================================
+   SIDEBAR CARD
+========================================================= */
+
+.service-sidebar-card {
+
+    padding: 25px;
+
+    margin-bottom: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8, 27, 48, 0.95),
+            rgba(4, 17, 31, 0.95)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 12px;
+}
+
+
+.service-sidebar-card h3 {
+
+    margin:
+        8px 0 25px;
+
+    font-size: 1.3rem;
+}
+
+
+/* =========================================================
+   SIDEBAR ITEM
+========================================================= */
+
+.service-sidebar-item {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 15px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+}
+
+
+.service-sidebar-item:last-child {
+
+    border-bottom: none;
+
+    padding-bottom: 0;
+}
+
+
+.service-sidebar-item > i {
+
+    width: 18px;
+
+    color: var(--service-primary);
+
+    margin-top: 3px;
+}
+
+
+.service-sidebar-item small {
+
+    display: block;
+
+    color: #667c96;
+
+    font-size: 0.62rem;
+
+    margin-bottom: 4px;
+}
+
+
+.service-sidebar-item strong {
+
+    display: block;
+
+    color: #dbe5f0;
+
+    font-size: 0.76rem;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CONTACT SIDEBAR
+========================================================= */
+
+.service-contact-card p {
+
+    color: #8fa1b8;
+
+    font-size: 0.82rem;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   BOUTON CONTACT
+========================================================= */
+
+.service-action {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    width: 100%;
+
+    padding: 12px 15px;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    background:
+        var(--service-primary);
+
+    color: #ffffff;
+
+    font-size: 0.78rem;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.service-action:hover {
+
+    color: #ffffff;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(13, 110, 253, 0.30);
+}
+
+
+/* =========================================================
+   RETOUR EN BAS
+========================================================= */
+
+.service-bottom-action {
+
+    margin-top: 50px;
+
+    padding-top: 30px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+}
+
+
+.service-back-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 12px 18px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+    border-radius: 7px;
+
+    color: #8295ad;
+
+    text-decoration: none;
+
+    font-size: 0.8rem;
+
+    transition: 0.3s;
+}
+
+
+.service-back-button:hover {
+
+    color: var(--service-primary);
+
+    border-color:
+        rgba(13, 110, 253, 0.4);
+
+    transform: translateX(-4px);
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLETTE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .service-detail-container {
+
+        width: 92%;
+    }
+
+
+    .service-detail-layout {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+
+    .service-detail-sidebar {
+
+        position: static;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 18px;
+    }
+
+
+    .service-info-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        margin-bottom: 50px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .service-detail-container {
+
+        width: 94%;
+    }
+
+
+    .service-detail-hero {
+
+        padding:
+            55px 0 40px;
+    }
+
+
+    .service-detail-hero h1 {
+
+        font-size: 2.3rem;
+
+        letter-spacing: -1px;
+    }
+
+
+    .service-detail-intro {
+
+        font-size: 0.95rem;
+    }
+
+
+    .service-main-image {
+
+        padding: 15px;
+
+        border-radius: 12px;
+    }
+
+
+    .service-info-grid {
+
+        grid-template-columns: 1fr;
+
+        margin-bottom: 50px;
+    }
+
+
+    .service-detail-sidebar {
+
+        display: grid;
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .service-detail-section h2 {
+
+        font-size: 1.6rem;
+    }
+
+
+    .service-detail-description,
+    .service-detail-text-block {
+
+        font-size: 0.92rem;
+
+        line-height: 1.8;
+    }
+
+
+    .service-detail-text-block {
+
+        padding: 20px;
+    }
+
+
+    .service-detail-quote {
+
+        padding: 25px;
+    }
+}
 
 /* =========================================================
    BENEFITS
@@ -6437,39 +7431,6 @@ img{
    MAIN IMAGE
    ========================================================= */
 
-.project-main-image {
-    height: 520px;
-
-    margin-top: 35px;
-
-    overflow: hidden;
-
-    border-radius: 18px;
-
-    background: #061326;
-
-    border: 1px solid rgba(255, 255, 255, 0.09);
-
-    box-shadow:
-        0 30px 70px rgba(0, 0, 0, 0.35);
-}
-
-
-.project-main-image img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-    transition: transform 0.8s ease;
-}
-
-
-.project-main-image:hover img {
-    transform: scale(1.025);
-}
 
 
 .project-no-image {
